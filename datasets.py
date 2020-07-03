@@ -18,5 +18,26 @@ skipped_friends = [
 
 
 to_follow_list = [
-    'ironstar_triathlon'
+    'ironstar_triathlon',
+    '5213club',
+    'evgeniykhalilov',
+    'victoria_shubina',
+    'ilovetriathlon_russia',
+    'ilovecycling_russia',
+    'rullezteam',
+    'rullez_swmbkrn',
+    'Mysportexpert',
+    'Scott_russia',
+    'rosneft_tristhlon',
+    'sbr88ironmanteam',
+    'e.nikitin_official',
+    'justtri_ru',
+    'temptraining',
+    'cycleon.team',
+    'Sberbank.triathlon.team',
+    'redlava_team',
+    'Matvey_zubov1',
+    'Gruppettocamp',
+    'Velodymoscow'
+
 ]
