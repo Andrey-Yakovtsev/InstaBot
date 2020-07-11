@@ -101,10 +101,16 @@ def my_unsubscriber_bot():
     telegram.end()
     session.end()
 
-schedule.every().day.at("18:22").do(my_liker_subscriber_bot)
-schedule.every().day.at("8:30").do(my_liker_subscriber_bot)
-schedule.every().day.at("14:30").do(my_unsubscriber_bot)
-schedule.every().day.at("02:30").do(my_unsubscriber_bot)
+# schedule.every().day.at("18:22").do(my_liker_subscriber_bot)
+# schedule.every().day.at("08:30").do(my_liker_subscriber_bot)
+# schedule.every().day.at("14:30").do(my_unsubscriber_bot)
+# schedule.every().day.at("02:30").do(my_unsubscriber_bot)
+
+"""На основании времени по серверу в Огайо -7 часов"""
+schedule.every().day.at("11:22").do(my_liker_subscriber_bot)
+schedule.every().day.at("01:30").do(my_liker_subscriber_bot)
+schedule.every().day.at("07:30").do(my_unsubscriber_bot)
+schedule.every().day.at("19:30").do(my_unsubscriber_bot)
 
 while True:
     schedule.run_pending()
