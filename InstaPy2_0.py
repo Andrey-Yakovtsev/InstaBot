@@ -6,7 +6,7 @@ import schedule
 from instapy.plugins import InstaPyTelegramBot
 
 
-def my_intapy_bot():
+def my_liker_subscriber_bot():
     '''Функция нужна только для запуска планировщика'''
 
     session = InstaPy(
@@ -19,12 +19,13 @@ def my_intapy_bot():
         multi_logs=True,
         bypass_security_challenge_using='sms'
     )
-    telegram = InstaPyTelegramBot(token='1095292391:AAHpAyz2zfnkQmHzq53rJ8ce_2BfpHa09LI', telegram_username='@andrey_yakovtsev',
+    telegram = InstaPyTelegramBot(token='1095292391:AAHpAyz2zfnkQmHzq53rJ8ce_2BfpHa09LI',
+                                  telegram_username='@andrey_yakovtsev',
                                   instapy_session=session)
     session.login()
     start = datetime.now()
     session.set_do_follow(enabled=True, percentage=15, times=1)
-    session.like_by_tags(tags, amount=1)  # 1 like на тэг на 1 друга. Отменил пока. Оставим только лайкателей друзей
+    # session.like_by_tags(tags, amount=1)  # 1 like на тэг на 1 друга. Отменил пока. Оставим только лайкателей друзей
     session.set_dont_include(skipped_friends)
     session.set_mandatory_language(enabled=True, character_set=['CYRILLIC'])
     session.set_action_delays(
@@ -42,7 +43,7 @@ def my_intapy_bot():
     session.follow_user_followers(to_follow_list, amount=10, randomize=False)
     # session.set_delimit_commenting(enabled=True, max_comments=None, min_comments=1)
 
-    session.set_comments([u':thumbsup:', u'\U0001F44D\U0001F3FB'])
+    session.set_comments(['Классно!', 'Здорово!'])
 
     session.set_relationship_bounds(enabled=True, max_followers=1020500, min_posts=3)
 
@@ -67,25 +68,43 @@ def my_intapy_bot():
                           sleep_delay=600,
                           interact=False)
 
-    session.unfollow_users(amount=30,
-                           instapy_followed_enabled=True,
-                           instapy_followed_param="nonfollowers",
-                           style="FIFO",
-                           unfollow_after=90 * 60 * 60,
-                           sleep_delay=501)
-
-    session.set_dont_unfollow_active_users(enabled=True, posts=5)
     telegram.end()
     session.end()
     end = datetime.now()
 
+def my_unsubscriber_bot():
+    '''Задание для отписок'''
 
-# eplased_time = end - start
-# подписчики на 25.06.2020 = 3573
-# подписки на 25.06.2020  = 2159
-schedule.every().day.at("18:22").do(my_intapy_bot)
-# schedule.every().day.at("8:30").do(my_intapy_bot)
+    session = InstaPy(
+        username="trisport_russia",
+        password="Pivovar3312",
+        headless_browser=True,
+        disable_image_load=True,
+        multi_logs=True,
+        bypass_security_challenge_using='sms'
+    )
+    telegram = InstaPyTelegramBot(token='1095292391:AAHpAyz2zfnkQmHzq53rJ8ce_2BfpHa09LI',
+                                  telegram_username='@andrey_yakovtsev',
+                                  instapy_session=session)
+    session.login()
+
+
+    session.set_action_delays(unfollow=3)
+
+    session.unfollow_users(amount=30,
+                           instapy_followed_enabled=True,
+                           instapy_followed_param="nonfollowers",
+                           style="FIFO",
+                           unfollow_after=90*60*60)
+
+    session.set_dont_unfollow_active_users(enabled=True, posts=5)
+    telegram.end()
+    session.end()
+
+schedule.every().day.at("18:22").do(my_liker_subscriber_bot)
+schedule.every().day.at("8:30").do(my_liker_subscriber_bot)
+schedule.every().day.at("14:30").do(my_unsubscriber_bot)
+schedule.every().day.at("02:30").do(my_unsubscriber_bot)
 
 while True:
-    schedule.run_all(60*60*12)
-    # time.sleep(
+    schedule.run_pending()
