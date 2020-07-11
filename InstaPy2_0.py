@@ -3,6 +3,7 @@ from datasets import tags, skipped_friends, to_follow_list
 from datetime import datetime
 import time
 import schedule
+from instapy.plugins import InstaPyTelegramBot
 
 
 def my_intapy_bot():
@@ -18,7 +19,8 @@ def my_intapy_bot():
         multi_logs=True,
         bypass_security_challenge_using='sms'
     )
-
+    telegram = InstaPyTelegramBot(token='1095292391:AAHpAyz2zfnkQmHzq53rJ8ce_2BfpHa09LI', telegram_username='@andrey_yakovtsev',
+                                  instapy_session=session)
     session.login()
     start = datetime.now()
     session.set_do_follow(enabled=True, percentage=15, times=1)
@@ -73,6 +75,7 @@ def my_intapy_bot():
                            sleep_delay=501)
 
     session.set_dont_unfollow_active_users(enabled=True, posts=5)
+    telegram.end()
     session.end()
     end = datetime.now()
 
@@ -80,7 +83,7 @@ def my_intapy_bot():
 # eplased_time = end - start
 # подписчики на 25.06.2020 = 3573
 # подписки на 25.06.2020  = 2159
-schedule.every().day.at("15:49").do(my_intapy_bot)
+schedule.every().day.at("18:22").do(my_intapy_bot)
 # schedule.every().day.at("8:30").do(my_intapy_bot)
 
 while True:
