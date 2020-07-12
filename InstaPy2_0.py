@@ -1,15 +1,16 @@
 from instapy import InstaPy
 from datasets import tags, skipped_friends, to_follow_list
+from logger_decor import logger
 from datetime import datetime
 import time
 import schedule
 from instapy.plugins import InstaPyTelegramBot
 import logging
 
-
+@logger
 def my_liker_subscriber_bot():
     '''Функция нужна только для запуска планировщика'''
-    logging.basicConfig(filename="like_subscribe.log", level=logging.INFO)
+    logging.basicConfig(filename="logs/like_subscribe.log", level=logging.INFO)
 
     session = InstaPy(
         # username="a_yakovtsev",
@@ -75,9 +76,10 @@ def my_liker_subscriber_bot():
     end = datetime.now()
     print('Время работы:', end-start)
 
+@logger
 def my_unsubscriber_bot():
     '''Задание для отписок'''
-    logging.basicConfig(filename="unsubscribe.log", level=logging.INFO)
+    logging.basicConfig(filename="logs/unsubscribe.log", level=logging.INFO)
     session = InstaPy(
         username="trisport_russia",
         password="Pivovar3312",
