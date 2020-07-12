@@ -4,10 +4,12 @@ from datetime import datetime
 import time
 import schedule
 from instapy.plugins import InstaPyTelegramBot
+import logging
 
 
 def my_liker_subscriber_bot():
     '''Функция нужна только для запуска планировщика'''
+    logging.basicConfig(filename="like_subscribe.log", level=logging.INFO)
 
     session = InstaPy(
         # username="a_yakovtsev",
@@ -71,10 +73,11 @@ def my_liker_subscriber_bot():
     telegram.end()
     session.end()
     end = datetime.now()
+    print('Время работы:', end-start)
 
 def my_unsubscriber_bot():
     '''Задание для отписок'''
-
+    logging.basicConfig(filename="unsubscribe.log", level=logging.INFO)
     session = InstaPy(
         username="trisport_russia",
         password="Pivovar3312",
@@ -87,7 +90,8 @@ def my_unsubscriber_bot():
                                   telegram_username='@andrey_yakovtsev',
                                   instapy_session=session)
     session.login()
-
+    start = datetime.now()
+    print('Время начала:', start)
 
     session.set_action_delays(unfollow=3)
 
@@ -97,20 +101,23 @@ def my_unsubscriber_bot():
                            style="FIFO",
                            unfollow_after=90*60*60)
 
-    session.set_dont_unfollow_active_users(enabled=True, posts=5)
+    session.set_dont_unfollow_active_users(enabled=True, posts=3)
     telegram.end()
     session.end()
+    end = datetime.now()
+    print('Время завершения:', end)
+    print('Время работы:', end - start)
 
-# schedule.every().day.at("18:22").do(my_liker_subscriber_bot)
-# schedule.every().day.at("08:30").do(my_liker_subscriber_bot)
-# schedule.every().day.at("14:30").do(my_unsubscriber_bot)
-# schedule.every().day.at("02:30").do(my_unsubscriber_bot)
+schedule.every().day.at("18:22").do(my_liker_subscriber_bot)
+schedule.every().day.at("08:30").do(my_liker_subscriber_bot)
+schedule.every().day.at("14:31").do(my_unsubscriber_bot) #подправить время поотм на 14.30
+schedule.every().day.at("02:30").do(my_unsubscriber_bot)
 
 """На основании времени по серверу в Огайо -7 часов"""
-schedule.every().day.at("11:22").do(my_liker_subscriber_bot)
-schedule.every().day.at("01:30").do(my_liker_subscriber_bot)
-schedule.every().day.at("07:30").do(my_unsubscriber_bot)
-schedule.every().day.at("19:30").do(my_unsubscriber_bot)
+# schedule.every().day.at("11:22").do(my_liker_subscriber_bot)
+# schedule.every().day.at("01:30").do(my_liker_subscriber_bot)
+# schedule.every().day.at("07:30").do(my_unsubscriber_bot)
+# schedule.every().day.at("19:30").do(my_unsubscriber_bot)
 
 while True:
     schedule.run_pending()
