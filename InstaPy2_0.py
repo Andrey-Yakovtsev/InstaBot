@@ -1,6 +1,5 @@
 from instapy import InstaPy
 from datasets import tags, skipped_friends, to_follow_list
-from logger_decor import logger
 from datetime import datetime
 import time
 import schedule
