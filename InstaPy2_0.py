@@ -114,9 +114,9 @@ def my_unsubscriber_bot():
     print('Время завершения:', end)
     print('Время работы:', end - start)
 
-schedule.every().day.at("22:58").do(my_liker_subscriber_bot) # было 18.20
-schedule.every().day.at("08:43").do(my_liker_subscriber_bot)
-schedule.every().day.at("14:00").do(my_unsubscriber_bot) #подправить время поотм на 14.30
+# schedule.every().day.at("22:58").do(my_liker_subscriber_bot) # было 18.20
+# schedule.every().day.at("08:43").do(my_liker_subscriber_bot)
+# schedule.every().day.at("14:00").do(my_unsubscriber_bot) #подправить время поотм на 14.30
 # schedule.every().day.at("23:54").do(my_unsubscriber_bot)  # was 08:30
 
 """На основании времени по серверу в Огайо -7 часов"""
@@ -125,5 +125,7 @@ schedule.every().day.at("14:00").do(my_unsubscriber_bot) #подправить �
 # schedule.every().day.at("07:30").do(my_unsubscriber_bot)
 # schedule.every().day.at("19:30").do(my_unsubscriber_bot)
 
-while True:
-    schedule.run_pending()
+# while True:
+#     schedule.run_pending()
+
+my_liker_subscriber_bot()
