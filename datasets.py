@@ -38,6 +38,7 @@ to_follow_list = [
     'redlava_team',
     'Matvey_zubov1',
     'Gruppettocamp',
-    'Velodymoscow'
+    'Velodymoscow',
+    'scienceinsportrussia'
 
 ]
