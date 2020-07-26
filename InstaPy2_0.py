@@ -4,12 +4,12 @@ from datetime import datetime
 import time
 import schedule
 from instapy.plugins import InstaPyTelegramBot
-import logging
+# import logging
 
 def my_liker_subscriber_bot():
     '''Функция нужна только для запуска планировщика'''
 
-    logging.basicConfig(filename="logs/like_subscribe.log", level=logging.INFO)
+    # logging.basicConfig(filename="logs/like_subscribe.log", level=logging.INFO)
 
     session = InstaPy(
         # username="a_yakovtsev",
