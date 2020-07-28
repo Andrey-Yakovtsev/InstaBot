@@ -4,11 +4,12 @@ from datetime import datetime
 import time
 import schedule
 from instapy.plugins import InstaPyTelegramBot
+import logging
 
 
 def like_by_tags_bot():
     '''Функция нужна только для запуска планировщика'''
-
+    logging.basicConfig(filename="Logs/like_by_tags.log", level=logging.INFO, filemode='w')
     session = InstaPy(
         username="trisport_russia",
         password="Pivovar3312",
@@ -72,7 +73,7 @@ def like_by_tags_bot():
 
 def follow_user_followers_bot():
     '''Функция нужна только для запуска планировщика'''
-
+    logging.basicConfig(filename="Logs/follow_user_followers.log", level=logging.INFO, filemode='w')
     session = InstaPy(
         username="trisport_russia",
         password="Pivovar3312",
@@ -139,7 +140,7 @@ def follow_user_followers_bot():
 
 def follow_photo_likers_bot():
     '''Функция нужна только для запуска планировщика'''
-
+    logging.basicConfig(filename="Logs/follow_photo_likers.log", level=logging.INFO, filemode='w')
     session = InstaPy(
         username="trisport_russia",
         password="Pivovar3312",
