@@ -255,4 +255,5 @@ schedule.every().day.at("06:23").do(like_by_tags_bot)
 
 
 while True:
+    print('Running. Waitong for 17.23 or 06.23')
     schedule.run_pending()
