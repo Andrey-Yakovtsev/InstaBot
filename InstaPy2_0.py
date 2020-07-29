@@ -3,7 +3,7 @@ from datasets import tags, skipped_friends, to_follow_list
 from datetime import datetime
 import time
 import schedule
-from instapy.plugins import InstaPyTelegramBot
+# from instapy.plugins import InstaPyTelegramBot
 import logging
 
 
@@ -20,17 +20,20 @@ def like_by_tags_bot():
         bypass_security_challenge_using='sms',
 
     )
-    telegram = InstaPyTelegramBot(token='1095292391:AAHpAyz2zfnkQmHzq53rJ8ce_2BfpHa09LI',
-                                  telegram_username='@andrey_yakovtsev',
-                                  debug=True,
-                                  instapy_session=session)
+    # telegram = InstaPyTelegramBot(token='1095292391:AAHpAyz2zfnkQmHzq53rJ8ce_2BfpHa09LI',
+    #                               telegram_username='@andrey_yakovtsev',
+    #                               debug=True,
+    #                               instapy_session=session)
     session.login()
     start = datetime.now()
     print('Время начала:', start)
-    session.set_do_follow(enabled=True, percentage=15, times=1)
     session.like_by_tags(tags, amount=1)  # 1 like на тэг на 1 друга.
+    session.set_do_follow(enabled=True, percentage=15, times=1)
+    # session.set_do_comment(enabled=True, percentage=10)
+    # session.set_comments(['Классно!', 'Здорово!'])
     session.set_dont_include(skipped_friends)
     session.set_mandatory_language(enabled=True, character_set=['CYRILLIC'])
+
     session.set_action_delays(
         enabled=True,
         like=3, comment=5,
@@ -39,14 +42,14 @@ def like_by_tags_bot():
         randomize=True,
         random_range_from=70,
         random_range_to=140)
-    session.set_do_comment(enabled=True, percentage=10)
-    session.like_by_feed(amount=10, randomize=True)
+
+    # session.like_by_feed(amount=10, randomize=True)
 
     # session.set_delimit_commenting(enabled=True, max_comments=None, min_comments=1)
 
-    session.set_comments(['Классно!', 'Здорово!'])
 
-    session.set_relationship_bounds(enabled=True, max_followers=1020500, min_posts=3)
+
+    session.set_relationship_bounds(enabled=True, delimit_by_numbers=True, max_followers=1020500, min_posts=3)
 
     session.set_skip_users(skip_private=True, skip_no_profile_pic=True,
                            skip_bio_keyword=['доставка', 'заказ', 'оплата', 'магазин'])  # skip_business=True,
@@ -65,7 +68,7 @@ def like_by_tags_bot():
                                  sleep_after=["likes", "comments_d", "follows", "unfollows"],
                                  notify_me=True)
 
-    telegram.end()
+    # telegram.end()
     session.end()
     end = datetime.now()
     print('Время окончания:', end)
@@ -81,20 +84,16 @@ def follow_user_followers_bot():
         disable_image_load=True,
         multi_logs=True,
         show_logs=True,
-        bypass_security_challenge_using='sms',
-
-    )
-    telegram = InstaPyTelegramBot(token='1095292391:AAHpAyz2zfnkQmHzq53rJ8ce_2BfpHa09LI',
-                                  telegram_username='@andrey_yakovtsev',
-                                  debug=True,
-                                  instapy_session=session)
+        bypass_security_challenge_using='sms')
+    # telegram = InstaPyTelegramBot(token='1095292391:AAHpAyz2zfnkQmHzq53rJ8ce_2BfpHa09LI',
+    #                               telegram_username='@andrey_yakovtsev',
+    #                               debug=True,
+    #                               instapy_session=session)
     session.login()
     start = datetime.now()
     print('Время начала:', start)
-    session.set_do_follow(enabled=True, percentage=15, times=1)
     # список аккаунтов, по подписчикам которых наддо профолловить
-    session.follow_user_followers(to_follow_list, amount=5, randomize=False, sleep_delay=300)
-
+    session.follow_user_followers(to_follow_list, amount=5, randomize=True, sleep_delay=30)
     session.set_dont_include(skipped_friends)
     session.set_mandatory_language(enabled=True, character_set=['CYRILLIC'])
     session.set_action_delays(
@@ -105,12 +104,12 @@ def follow_user_followers_bot():
         randomize=True,
         random_range_from=70,
         random_range_to=140)
-    session.set_do_comment(enabled=True, percentage=10)
-    session.like_by_feed(amount=5, randomize=True)
+    # session.set_do_comment(enabled=True, percentage=10)
+    # session.like_by_feed(amount=5, randomize=True)
 
     # session.set_delimit_commenting(enabled=True, max_comments=None, min_comments=1)
 
-    session.set_comments(['Классно!', 'Здорово!'])
+    # session.set_comments(['Классно!', 'Здорово!'])
 
     session.unfollow_users(amount=15,
                            instapy_followed_enabled=True,
@@ -120,7 +119,7 @@ def follow_user_followers_bot():
 
     session.set_dont_unfollow_active_users(enabled=True, posts=3)
 
-    session.set_relationship_bounds(enabled=True, max_followers=1020500, min_posts=3)
+    session.set_relationship_bounds(enabled=True, delimit_by_numbers=True, max_followers=1020500, min_posts=3)
 
     session.set_skip_users(skip_private=True, skip_no_profile_pic=True,
                            skip_bio_keyword=['доставка', 'заказ', 'оплата', 'магазин'])  # skip_business=True,
@@ -132,7 +131,7 @@ def follow_user_followers_bot():
                                  sleep_after=["likes", "comments_d", "follows", "unfollows"],
                                  notify_me=True)
 
-    telegram.end()
+    # telegram.end()
     session.end()
     end = datetime.now()
     print('Время окончания:', end)
@@ -151,20 +150,19 @@ def follow_photo_likers_bot():
         bypass_security_challenge_using='sms',
 
     )
-    telegram = InstaPyTelegramBot(token='1095292391:AAHpAyz2zfnkQmHzq53rJ8ce_2BfpHa09LI',
-                                  telegram_username='@andrey_yakovtsev',
-                                  debug=True,
-                                  instapy_session=session)
+    # telegram = InstaPyTelegramBot(token='1095292391:AAHpAyz2zfnkQmHzq53rJ8ce_2BfpHa09LI',
+    #                               telegram_username='@andrey_yakovtsev',
+    #                               debug=True,
+    #                               instapy_session=session)
     session.login()
     start = datetime.now()
     print('Время начала:', start)
-    session.set_do_follow(enabled=True, percentage=15, times=1)
     # зафолловить лайкеров фоточек именованных аккаунтов
     session.follow_likers(to_follow_list,
                           photos_grab_amount=3,
                           follow_likers_per_photo=3,
                           randomize=True,
-                          sleep_delay=4,
+                          sleep_delay=5,
                           interact=True)
     session.set_dont_include(skipped_friends)
     session.set_mandatory_language(enabled=True, character_set=['CYRILLIC'])
@@ -176,14 +174,10 @@ def follow_photo_likers_bot():
         randomize=True,
         random_range_from=70,
         random_range_to=140)
-    session.set_do_comment(enabled=True, percentage=10)
-    session.like_by_feed(amount=10, randomize=True)
+    # session.set_do_comment(enabled=True, percentage=10)
+    # session.set_comments(['Классно!', 'Здорово!'])
 
-    # session.set_delimit_commenting(enabled=True, max_comments=None, min_comments=1)
-
-    session.set_comments(['Классно!', 'Здорово!'])
-
-    session.set_relationship_bounds(enabled=True, max_followers=1020500, min_posts=3)
+    session.set_relationship_bounds(enabled=True, delimit_by_numbers=True, max_followers=1020500, min_posts=3)
 
     session.set_skip_users(skip_private=True, skip_no_profile_pic=True,
                            skip_bio_keyword=['доставка', 'заказ', 'оплата', 'магазин'])  # skip_business=True,
@@ -195,7 +189,7 @@ def follow_photo_likers_bot():
                                  sleep_after=["likes", "comments_d", "follows", "unfollows"],
                                  notify_me=True)
 
-    telegram.end()
+    # telegram.end()
     session.end()
     end = datetime.now()
     print('Время окончания:', end)
@@ -238,21 +232,21 @@ def follow_photo_likers_bot():
 #     print('Время завершения:', end)
 #     print('Время работы:', end - start)
 
-schedule.every().monday.at("17:45").do(follow_photo_likers_bot)
-schedule.every().wednesday.at("17:45").do(follow_photo_likers_bot)
-schedule.every().friday.at("17:45").do(follow_photo_likers_bot)
-schedule.every().sunday.at("17:45").do(follow_photo_likers_bot)
+# schedule.every().monday.at("17:45").do(follow_photo_likers_bot)
+# schedule.every().wednesday.at("17:45").do(follow_photo_likers_bot)
+# schedule.every().friday.at("17:45").do(follow_photo_likers_bot)
+# schedule.every().sunday.at("17:45").do(follow_photo_likers_bot)
+#
+# schedule.every().tuesday.at("17:45").do(follow_user_followers_bot)
+# schedule.every().thursday.at("17:45").do(follow_user_followers_bot)
+# schedule.every().saturday.at("17:45").do(follow_user_followers_bot)
+#
+#
+# schedule.every().day.at("06:23").do(like_by_tags_bot)
 
-schedule.every().tuesday.at("17:45").do(follow_user_followers_bot)
-schedule.every().thursday.at("17:45").do(follow_user_followers_bot)
-schedule.every().saturday.at("17:45").do(follow_user_followers_bot)
+# follow_photo_likers_bot()
+follow_user_followers_bot()
+# like_by_tags_bot()
 
-
-schedule.every().day.at("06:23").do(like_by_tags_bot)
-# schedule.every().day.at("14:04").do(my_unsubscriber_bot)
-# schedule.every().day.at("01:54").do(my_unsubscriber_bot)
-
-
-
-while True:
-    schedule.run_pending()
+# while True:
+#     schedule.run_pending()
