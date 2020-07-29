@@ -232,21 +232,21 @@ def follow_photo_likers_bot():
 #     print('Время завершения:', end)
 #     print('Время работы:', end - start)
 
-# schedule.every().monday.at("17:45").do(follow_photo_likers_bot)
-# schedule.every().wednesday.at("17:45").do(follow_photo_likers_bot)
-# schedule.every().friday.at("17:45").do(follow_photo_likers_bot)
-# schedule.every().sunday.at("17:45").do(follow_photo_likers_bot)
-#
-# schedule.every().tuesday.at("17:45").do(follow_user_followers_bot)
-# schedule.every().thursday.at("17:45").do(follow_user_followers_bot)
-# schedule.every().saturday.at("17:45").do(follow_user_followers_bot)
-#
-#
-# schedule.every().day.at("06:23").do(like_by_tags_bot)
+schedule.every().monday.at("17:45").do(like_by_tags_bot)
+schedule.every().wednesday.at("17:45").do(like_by_tags_bot)
+schedule.every().friday.at("17:45").do(like_by_tags_bot)
+schedule.every().sunday.at("17:45").do(like_by_tags_bot)
+
+schedule.every().tuesday.at("17:45").do(follow_user_followers_bot)
+schedule.every().thursday.at("17:45").do(follow_user_followers_bot)
+schedule.every().saturday.at("17:45").do(follow_user_followers_bot)
+
+schedule.every().day.at("06:23").do(follow_photo_likers_bot)
+
 
 # follow_photo_likers_bot()
-follow_user_followers_bot()
+# follow_user_followers_bot()
 # like_by_tags_bot()
 
-# while True:
-#     schedule.run_pending()
+while True:
+    schedule.run_pending()
