@@ -5,14 +5,29 @@ import time
 import schedule
 # from instapy.plugins import InstaPyTelegramBot
 import logging
+import telebot
+
+
+bot = telebot.TeleBot('1095292391:AAHpAyz2zfnkQmHzq53rJ8ce_2BfpHa09LI')
+def print_bot_start_status(text):
+    bot.send_message(chat_id='212438834', text=f'Бот {text}  стартанул')
+
+def print_bot_end_status(text):
+    bot.send_message(chat_id='212438834', text=f'Бот {text} закончил')
+
+def error_bot():
+    bot.send_message(chat_id='212438834', text=f'Бот поломался')
 
 
 def like_by_tags_bot():
     '''Функция нужна только для запуска планировщика'''
     logging.basicConfig(filename="Logs/like_by_tags.log", level=logging.INFO, filemode='w')
+    print_bot_start_status('like_by_tags_bot')
     session = InstaPy(
-        username="trisport_russia",
-        password="Pivovar3312",
+        username="a_yakovtsev",
+        password="Insta331133",
+        # username="trisport_russia",
+        # password="Pivovar3312",
         headless_browser=True,
         disable_image_load=True,
         multi_logs=True,
@@ -20,10 +35,7 @@ def like_by_tags_bot():
         bypass_security_challenge_using='sms',
 
     )
-    # telegram = InstaPyTelegramBot(token='1095292391:AAHpAyz2zfnkQmHzq53rJ8ce_2BfpHa09LI',
-    #                               telegram_username='@andrey_yakovtsev',
-    #                               debug=True,
-    #                               instapy_session=session)
+
     session.login()
     start = datetime.now()
     print('Время начала:', start)
@@ -70,6 +82,7 @@ def like_by_tags_bot():
 
     # telegram.end()
     session.end()
+    print_bot_end_status('like_by_tags_bot')
     end = datetime.now()
     print('Время окончания:', end)
     print('Время работы:', end-start)
@@ -77,10 +90,13 @@ def like_by_tags_bot():
 def follow_user_followers_bot():
     '''Функция нужна только для запуска планировщика'''
     logging.basicConfig(filename="Logs/follow_user_followers.log", level=logging.INFO, filemode='w')
+    print_bot_start_status('follow_user_followers_bot')
     session = InstaPy(
-        username="trisport_russia",
-        password="Pivovar3312",
-        headless_browser=True,
+        username="a_yakovtsev",
+        password="Insta331133",
+        # username="trisport_russia",
+        # password="Pivovar3312",
+        headless_browser=False,
         disable_image_load=True,
         multi_logs=True,
         show_logs=True,
@@ -133,6 +149,7 @@ def follow_user_followers_bot():
 
     # telegram.end()
     session.end()
+    print_bot_end_status('follow_user_followers_bot')
     end = datetime.now()
     print('Время окончания:', end)
     print('Время работы:', end-start)
@@ -140,14 +157,19 @@ def follow_user_followers_bot():
 def follow_photo_likers_bot():
     '''Функция нужна только для запуска планировщика'''
     logging.basicConfig(filename="Logs/follow_photo_likers.log", level=logging.INFO, filemode='w')
+    print_bot_start_status('follow_photo_likers_bot')
     session = InstaPy(
-        username="trisport_russia",
-        password="Pivovar3312",
+        username="a_yakovtsev",
+        password="Insta331133",
+        # username="trisport_russia",
+        # password="Pivovar3312",
+
         headless_browser=True,
         disable_image_load=True,
         multi_logs=True,
         show_logs=True,
         bypass_security_challenge_using='sms',
+        want_check_browser=True
 
     )
     # telegram = InstaPyTelegramBot(token='1095292391:AAHpAyz2zfnkQmHzq53rJ8ce_2BfpHa09LI',
@@ -191,6 +213,7 @@ def follow_photo_likers_bot():
 
     # telegram.end()
     session.end()
+    print_bot_start_status('follow_photo_likers_bot')
     end = datetime.now()
     print('Время окончания:', end)
     print('Время работы:', end-start)
@@ -199,7 +222,7 @@ def follow_photo_likers_bot():
 '''Перенес отписки в стандариный функционал'''
 # def my_unsubscriber_bot():
 #     '''Задание для отписок'''
-#     # logging.basicConfig(filename="logs/unsubscribe.log", level=logging.INFO)
+#     # logging.basicConfig(filename="Logs/unsubscribe.log", level=logging.INFO)
 #     session = InstaPy(
 #         username="trisport_russia",
 #         password="Pivovar3312",
@@ -232,21 +255,28 @@ def follow_photo_likers_bot():
 #     print('Время завершения:', end)
 #     print('Время работы:', end - start)
 
-schedule.every().monday.at("17:45").do(like_by_tags_bot)
-schedule.every().wednesday.at("17:45").do(like_by_tags_bot)
-schedule.every().friday.at("17:45").do(like_by_tags_bot)
-schedule.every().sunday.at("17:45").do(like_by_tags_bot)
+# schedule.every().monday.at("17:45").do(like_by_tags_bot)
+# schedule.every().wednesday.at("17:45").do(like_by_tags_bot)
+# schedule.every().friday.at("17:45").do(like_by_tags_bot)
+# schedule.every().sunday.at("17:45").do(like_by_tags_bot)
+#
+# schedule.every().tuesday.at("17:45").do(follow_user_followers_bot)
+# schedule.every().thursday.at("17:45").do(follow_user_followers_bot)
+# schedule.every().saturday.at("17:45").do(follow_user_followers_bot)
+#
+# schedule.every().day.at("06:23").do(follow_photo_likers_bot)
 
-schedule.every().tuesday.at("17:45").do(follow_user_followers_bot)
-schedule.every().thursday.at("17:45").do(follow_user_followers_bot)
-schedule.every().saturday.at("17:45").do(follow_user_followers_bot)
-
-schedule.every().day.at("06:23").do(follow_photo_likers_bot)
-
-
-# follow_photo_likers_bot()
-# follow_user_followers_bot()
-# like_by_tags_bot()
-
-while True:
-    schedule.run_pending()
+try:
+    # follow_user_followers_bot()
+    # follow_photo_likers_bot()
+    like_by_tags_bot()
+except Exception as e:
+    if e:
+        bot.send_message(chat_id='212438834', text=f'Бот словил ошибку {e}, класса{e.__class__}')
+        try:
+            bot.send_message(chat_id='212438834', text=f'Стартуем снова')
+            like_by_tags_bot()
+        except Exception as e:
+                bot.send_message(chat_id='212438834', text=f'Бот словил ошибку {e}, класса{e.__class__}')
+# while True:
+#     schedule.run_pending()
