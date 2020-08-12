@@ -24,10 +24,10 @@ def like_by_tags_bot():
     logging.basicConfig(filename="Logs/like_by_tags.log", level=logging.INFO, filemode='w')
     print_bot_start_status('like_by_tags_bot')
     session = InstaPy(
-        username="a_yakovtsev",
-        password="Insta331133",
-        # username="trisport_russia",
-        # password="Pivovar3312",
+        # username="a_yakovtsev",
+        # password="Insta331133",
+        username="trisport_russia",
+        password="Pivovar3312",
         headless_browser=True,
         disable_image_load=True,
         multi_logs=True,
@@ -92,10 +92,10 @@ def follow_user_followers_bot():
     logging.basicConfig(filename="Logs/follow_user_followers.log", level=logging.INFO, filemode='w')
     print_bot_start_status('follow_user_followers_bot')
     session = InstaPy(
-        username="a_yakovtsev",
-        password="Insta331133",
-        # username="trisport_russia",
-        # password="Pivovar3312",
+        # username="a_yakovtsev",
+        # password="Insta331133",
+        username="trisport_russia",
+        password="Pivovar3312",
         headless_browser=False,
         disable_image_load=True,
         multi_logs=True,
@@ -159,23 +159,18 @@ def follow_photo_likers_bot():
     logging.basicConfig(filename="Logs/follow_photo_likers.log", level=logging.INFO, filemode='w')
     print_bot_start_status('follow_photo_likers_bot')
     session = InstaPy(
-        username="a_yakovtsev",
-        password="Insta331133",
-        # username="trisport_russia",
-        # password="Pivovar3312",
-
+        # username="a_yakovtsev",
+        # password="Insta331133",
+        username="trisport_russia",
+        password="Pivovar3312",
         headless_browser=True,
         disable_image_load=True,
         multi_logs=True,
         show_logs=True,
         bypass_security_challenge_using='sms',
         want_check_browser=True
-
     )
-    # telegram = InstaPyTelegramBot(token='1095292391:AAHpAyz2zfnkQmHzq53rJ8ce_2BfpHa09LI',
-    #                               telegram_username='@andrey_yakovtsev',
-    #                               debug=True,
-    #                               instapy_session=session)
+
     session.login()
     start = datetime.now()
     print('Время начала:', start)
@@ -211,7 +206,6 @@ def follow_photo_likers_bot():
                                  sleep_after=["likes", "comments_d", "follows", "unfollows"],
                                  notify_me=True)
 
-    # telegram.end()
     session.end()
     print_bot_start_status('follow_photo_likers_bot')
     end = datetime.now()
@@ -276,6 +270,7 @@ except Exception as e:
         try:
             bot.send_message(chat_id='212438834', text=f'Стартуем снова')
             like_by_tags_bot()
+            # follow_photo_likers_bot()
         except Exception as e:
                 bot.send_message(chat_id='212438834', text=f'Бот словил ошибку {e}, класса{e.__class__}')
 # while True:

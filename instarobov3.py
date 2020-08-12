@@ -1,19 +1,16 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from auth_data import username, password
+from selenium.webdriver.firefox.options import Options
+from auth_data import username, password, bot_creds, tg_chat_auth
 from datasets import tags, skipped_friends, to_follow_list
 import time
 import random
 from selenium.common.exceptions import NoSuchElementException
-import requests
-import os
+from bs4 import BeautifulSoup
 import telebot
 
 
-bot = telebot.TeleBot('1095292391:AAHpAyz2zfnkQmHzq53rJ8ce_2BfpHa09LI')
-
-def print_bot_start_status(text):
-    bot.send_message(chat_id='212438834', text=f'Бот {text}  стартанул')
+bot = telebot.TeleBot(bot_creds)
 
 
 class InstagramBot():
@@ -24,6 +21,9 @@ class InstagramBot():
         self.username = username
         self.password = password
         self.browser = webdriver.Firefox()
+        # self.options = Options()
+        # self.options.headless = True
+
 
     # метод для закрытия браузера
     def close_browser(self):
@@ -36,7 +36,7 @@ class InstagramBot():
 
         browser = self.browser
         browser.get('https://www.instagram.com')
-        time.sleep(random.randrange(3, 5))
+        time.sleep(random.randrange(5, 10))
 
         username_input = browser.find_element_by_name('username')
         username_input.clear()
@@ -49,207 +49,97 @@ class InstagramBot():
         password_input.send_keys(password)
 
         password_input.send_keys(Keys.ENTER)
-        time.sleep(10)
-
-    # метод ставит лайки по hashtag
-    def like_photo_by_hashtag(self, hashtag):
-        bot.send_message(chat_id='212438834', text=f'Бот {hashtag}  стартанул')
-        browser = self.browser
-        browser.get(f'https://www.instagram.com/explore/tags/{hashtag}/') #запилить через цикл тэги
         time.sleep(5)
 
-        for i in range(1, 4):
-            browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            time.sleep(random.randrange(3, 5))
+    '''ищет кнопку "Подписаться". Пока решил ее не запускать.
+    Потом можно в цикла по хэштегам поставить слайс на каждый 5й, например...'''
+    def xpath_exists(self):
+        url = '/html/body/div[1]/section/main/div/div[1]/article/header/div[2]/div[1]/div[2]/button'
 
-        hrefs = browser.find_elements_by_tag_name('a')
-        posts_urls = [item.get_attribute('href') for item in hrefs if "/p/" in item.get_attribute('href')]
-
-        for url in posts_urls:
-            try:
-                browser.get(url)
-                time.sleep(3)
-                like_button = browser.find_element_by_xpath(
-                    '/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[1]/span[1]/button').click()
-                time.sleep(random.randrange(80, 100))
-            except Exception as ex:
-                print(ex)
-                self.close_browser()
-        bot.send_message(chat_id='212438834', text=f'Бот {hashtag}  ФИНИШ')
-
-    # метод проверяет по xpath существует ли элемент на странице
-    def xpath_exists(self, url):
-
-        browser = self.browser
         try:
-            browser.find_element_by_xpath(url)
-            exist = True
+            self.browser.find_element_by_xpath(url).click()  # click to SUBSCRIBE BUTTON
+            bot.send_message(chat_id=tg_chat_auth, text=f'Подписался')
+            time.sleep(random.randrange(10, 15))
         except NoSuchElementException:
-            exist = False
-        return exist
+            pass
 
-    # метод ставит лайк на пост по прямой ссылке
-    def put_exactly_like(self, userpost):
+    def find_already_liked_posts(self):
+        requiredHtml = self.browser.page_source
+        soup = BeautifulSoup(requiredHtml, 'html.parser')
+        liked_post = soup.find_all('span', class_='fr66n')  # '_8-yf5 '
+        for item in liked_post:
+            svg = item.find('svg') #Нашел контейнер
+            lookup = str(svg).split('=')
+            like = '"Не нравится" class' #Нашел строчку, которая говорит, что уже полайкано
+            if like in lookup:
+                return False
+            else:
+                return True
 
+    def like_3_thread_posts(self):
+        hrefs = self.browser.find_elements_by_tag_name('a')
+        extra_urls = [item.get_attribute('href') for item in hrefs if "/p/" in item.get_attribute('href')]
+        for url in extra_urls[:3]:
+            pass
+        '''выкатить в лайкинг в отдельную фенкцию...'''
+
+
+    # метод ставит лайки по hashtag
+    def like_photo_by_hashtag(self):
+        like_clicks = 0
+        subscribe_clicks = 0
         browser = self.browser
-        browser.get(userpost)
-        time.sleep(4)
+        for hashtag in tags:
+            browser.get(f'https://www.instagram.com/explore/tags/{hashtag}/')
+            time.sleep(5)
+            bot.send_message(chat_id=tg_chat_auth, text=f'Бот {hashtag}  стартанул')
 
-        wrong_userpage = "/html/body/div[1]/section/main/div/h2"
-        if self.xpath_exists(wrong_userpage):
-            print("Такого поста не существует, проверьте URL")
-            self.close_browser()
-        else:
-            print("Пост успешно найден, ставим лайк!")
-            time.sleep(2)
-
-            like_button = "/html/body/div[1]/section/main/div/div/article/div[3]/section[1]/span[1]/button"
-            browser.find_element_by_xpath(like_button).click()
-            time.sleep(2)
-
-            print(f"Лайк на пост: {userpost} поставлен!")
-            self.close_browser()
-
-    # метод собирает ссылки на все посты пользователя
-    def get_all_posts_urls(self, userpage):
-
-        browser = self.browser
-        browser.get(userpage)
-        time.sleep(4)
-
-        wrong_userpage = "/html/body/div[1]/section/main/div/h2"
-        if self.xpath_exists(wrong_userpage):
-            print("Такого пользователя не существует, проверьте URL")
-            self.close_browser()
-        else:
-            print("Пользователь успешно найден, ставим лайки!")
-            time.sleep(2)
-
-            posts_count = int(browser.find_element_by_xpath(
-                "/html/body/div[1]/section/main/div/header/section/ul/li[1]/span/span").text)
-            loops_count = int(posts_count / 12)
-            print(loops_count)
-
-            posts_urls = []
-            for i in range(0, loops_count):
-                hrefs = browser.find_elements_by_tag_name('a')
-                hrefs = [item.get_attribute('href') for item in hrefs if "/p/" in item.get_attribute('href')]
-
-                for href in hrefs:
-                    posts_urls.append(href)
-
+            for i in range(1, 6):
                 browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                time.sleep(random.randrange(2, 4))
-                print(f"Итерация #{i}")
+                time.sleep(random.randrange(3, 5))
 
-            file_name = userpage.split("/")[-2]
-
-            with open(f'{file_name}.txt', 'a') as file:
-                for post_url in posts_urls:
-                    file.write(post_url + "\n")
-
-            set_posts_urls = set(posts_urls)
-            set_posts_urls = list(set_posts_urls)
-
-            with open(f'{file_name}_set.txt', 'a') as file:
-                for post_url in set_posts_urls:
-                    file.write(post_url + '\n')
-
-    # метод ставит лайки по ссылке на аккаунт пользователя
-    def put_many_likes(self, userpage):
-
-        browser = self.browser
-        self.get_all_posts_urls(userpage)
-        file_name = userpage.split("/")[-2]
-        time.sleep(4)
-        browser.get(userpage)
-        time.sleep(4)
-
-        with open(f'{file_name}_set.txt') as file:
-            urls_list = file.readlines()
-
-            for post_url in urls_list[0:6]:
+            hrefs = browser.find_elements_by_tag_name('a')
+            posts_urls = [item.get_attribute('href') for item in hrefs if "/p/" in item.get_attribute('href')]
+            url_counter = 0
+            for url in posts_urls[10:random.randrange(20, 50)]: # liking for random posts under 1 hashtag starting from 10th as "newest"
+                url_counter += 1
                 try:
-                    browser.get(post_url)
-                    time.sleep(2)
-
-                    like_button = "/html/body/div[1]/section/main/div/div/article/div[3]/section[1]/span[1]/button"
-                    browser.find_element_by_xpath(like_button).click()
-                    # time.sleep(random.randrange(80, 100))
-                    time.sleep(2)
-
-                    print(f"Лайк на пост: {post_url} успешно поставлен!")
-                except Exception as ex:
-                    print(ex)
-                    self.close_browser()
-
-        self.close_browser()
-
-    # тод скачивает контент со страницы пользователя
-    def download_userpage_content(self, userpage):
-
-        browser = self.browser
-        self.get_all_posts_urls(userpage)
-        file_name = userpage.split("/")[-2]
-        time.sleep(4)
-        browser.get(userpage)
-        time.sleep(4)
-
-        # создаём папку с именем пользователя для чистоты проекта
-        if os.path.exists(f"{file_name}"):
-            print("Папка уже существует!")
-        else:
-            os.mkdir(file_name)
-
-        img_and_video_src_urls = []
-        with open(f'{file_name}_set.txt') as file:
-            urls_list = file.readlines()
-
-            for post_url in urls_list:
-                try:
-                    browser.get(post_url)
-                    time.sleep(4)
-
-                    img_src = "/html/body/div[1]/section/main/div/div[1]/article/div[2]/div/div/div[1]/img"
-                    video_src = "/html/body/div[1]/section/main/div/div[1]/article/div[2]/div/div/div[1]/div/div/video"
-                    post_id = post_url.split("/")[-2]
-
-                    if self.xpath_exists(img_src):
-                        img_src_url = browser.find_element_by_xpath(img_src).get_attribute("src")
-                        img_and_video_src_urls.append(img_src_url)
-
-                        # сохраняем изображение
-                        get_img = requests.get(img_src_url)
-                        with open(f"{file_name}/{file_name}_{post_id}_img.jpg", "wb") as img_file:
-                            img_file.write(get_img.content)
-
-                    elif self.xpath_exists(video_src):
-                        video_src_url = browser.find_element_by_xpath(video_src).get_attribute("src")
-                        img_and_video_src_urls.append(video_src_url)
-
-                        # сохраняем видео
-                        get_video = requests.get(video_src_url, stream=True)
-                        with open(f"{file_name}/{file_name}_{post_id}_video.mp4", "wb") as video_file:
-                            for chunk in get_video.iter_content(chunk_size=1024 * 1024):
-                                if chunk:
-                                    video_file.write(chunk)
+                    browser.get(url)
+                    time.sleep(5)
+                    if self.find_already_liked_posts(): # Если еще не полайкали, то вперед
+                        browser.find_element_by_xpath(
+                            '/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[1]/span[1]/button/div'
+                        ).click()   #click to LIKE BUTTON
+                        like_clicks +=1
+                        print('Лайкнули')
+                        bot.send_message(chat_id=tg_chat_auth, text=f'Новый лайк')
+                        time.sleep(random.randrange(80, 100))
+                        if url_counter % 5 == 0:
+                            browser.find_element_by_xpath(
+                                '/html/body/div[1]/section/main/div/div[1]/article/header/div[2]/div[1]/div[2]/button'
+                            ).click() #CLICK SUBSCRIBE BUTTON
+                            subscribe_clicks += 1
+                            bot.send_message(chat_id=tg_chat_auth, text=f'Подписочка')
+                            time.sleep(random.randrange(5, 10))
                     else:
-                        # print("Упс! Что-то пошло не так!")
-                        img_and_video_src_urls.append(f"{post_url}, нет ссылки!")
-                    print(f"Контент из поста {post_url} успешно скачан!")
-
+                        print('Уже пролайкали')
+                        bot.send_message(chat_id=tg_chat_auth, text=f'Лайк уже был')
+                        time.sleep(random.randrange(30, 50))
+                        continue
                 except Exception as ex:
                     print(ex)
-                    self.close_browser()
+                    bot.send_message(chat_id=tg_chat_auth, text=f'Бот сломался с ошибкой {ex}')
+            bot.send_message(chat_id=tg_chat_auth, text=f'Бот по тэгу {hashtag} закончил. Likes: {like_clicks}. '
+                                                        f'Подписок {subscribe_clicks}')
+            time.sleep(random.randrange(80, 100))
+        self.close_browser()
+        bot.send_message(chat_id=tg_chat_auth, text=f'Бот ВООБЩЕ ВСЕ СДЕЛАЛ И ЗАКОНЧИЛ. Налупили лайков: {like_clicks}'
+                                                    f'и {subscribe_clicks} подписок')
 
-            self.close_browser()
 
-        with open(f'{file_name}/{file_name}_img_and_video_src_urls.txt', 'a') as file:
-            for i in img_and_video_src_urls:
-                file.write(i + "\n")
-
-
-my_bot = InstagramBot(username, password)
-my_bot.login()
-# my_bot.download_userpage_content("https://www.instagram.com/username/")
-my_bot.like_photo_by_hashtag('ironstar')
+try:
+    my_bot = InstagramBot(username, password)
+    my_bot.login()
+    my_bot.like_photo_by_hashtag()
+except Exception as exep:
+    bot.send_message(chat_id=tg_chat_auth, text=f'Бот сломался с ошибкой {exep}')
