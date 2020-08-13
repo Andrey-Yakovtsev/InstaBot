@@ -76,6 +76,40 @@ class InstagramBot():
             else:
                 return True
 
+
+    def skip_if_already_subscribed(self):
+        '''Если подписаны уже, то скипаем пост
+        (но Юзер-то м.б. не подписан на нас!!!!)'''
+
+        requiredHtml = self.browser.page_source
+        soup = BeautifulSoup(requiredHtml, 'html.parser')
+        subscribed_user = soup.find_all('div', class_='bY2yH') # Нашел контейнер
+        sub_confirmed = str(subscribed_user).split(' ')
+        nonconfirmed = 'type="button">Подписаться</button></div>]' # Нашел строчку, которая говорит, что уже подписан
+        if nonconfirmed in sub_confirmed:
+            print('Можно подписаться')
+            return True
+        else:
+            print('Уже подписаны на юзера')
+            return False
+
+    def get_list_of_post_likers(self):
+        '''
+        собираем список эккаунтов тех, кто лайкнул пост по хаштегу
+        :return: список урлов-аккаунтов лайкеров
+        '''
+        # self.browser.find_element_by_xpath(
+        # '/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[2]/div/div[2]/button'
+        # ).click()
+        # for i in range(1, 6):
+        #     self.browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        #     time.sleep(random.randrange(3, 5))
+        # hrefs = self.browser.find_elements_by_tag_name('a')
+        # profile_urls = [item.get_attribute('href') for item in hrefs if "/p/" in item.get_attribute('href')]
+        # print(profile_urls)
+        pass
+        '''не до конца нормально работает'''
+
     def like_3_thread_posts(self):
         hrefs = self.browser.find_elements_by_tag_name('a')
         extra_urls = [item.get_attribute('href') for item in hrefs if "/p/" in item.get_attribute('href')]
@@ -88,11 +122,13 @@ class InstagramBot():
     def like_photo_by_hashtag(self):
         like_clicks = 0
         subscribe_clicks = 0
+        ht_counter = 1
         browser = self.browser
         for hashtag in tags:
             browser.get(f'https://www.instagram.com/explore/tags/{hashtag}/')
             time.sleep(5)
-            bot.send_message(chat_id=tg_chat_auth, text=f'Бот {hashtag}  стартанул')
+            bot.send_message(chat_id=tg_chat_auth, text=f'Бот {hashtag}  стартанул.'
+                                                        f'Tag {ht_counter}/{len(tags)}')
 
             for i in range(1, 6):
                 browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -106,18 +142,19 @@ class InstagramBot():
                 try:
                     browser.get(url)
                     time.sleep(5)
+                    self.get_list_of_post_likers()
                     if self.find_already_liked_posts(): # Если еще не полайкали, то вперед
-                        browser.find_element_by_xpath(
-                            '/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[1]/span[1]/button/div'
-                        ).click()   #click to LIKE BUTTON
-                        like_clicks +=1
+                        # browser.find_element_by_xpath(
+                        #     '/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[1]/span[1]/button/div'
+                        # ).click()   #click to LIKE BUTTON
+                        # like_clicks +=1
                         print('Лайкнули')
                         bot.send_message(chat_id=tg_chat_auth, text=f'Новый лайк')
                         time.sleep(random.randrange(80, 100))
-                        if url_counter % 5 == 0:
-                            browser.find_element_by_xpath(
-                                '/html/body/div[1]/section/main/div/div[1]/article/header/div[2]/div[1]/div[2]/button'
-                            ).click() #CLICK SUBSCRIBE BUTTON
+                        if url_counter % 10 == 0:
+                            # browser.find_element_by_xpath(
+                            #     '/html/body/div[1]/section/main/div/div[1]/article/header/div[2]/div[1]/div[2]/button'
+                            # ).click() #CLICK SUBSCRIBE BUTTON
                             subscribe_clicks += 1
                             bot.send_message(chat_id=tg_chat_auth, text=f'Подписочка')
                             time.sleep(random.randrange(5, 10))
@@ -126,6 +163,7 @@ class InstagramBot():
                         bot.send_message(chat_id=tg_chat_auth, text=f'Лайк уже был')
                         time.sleep(random.randrange(30, 50))
                         continue
+
                 except Exception as ex:
                     print(ex)
                     bot.send_message(chat_id=tg_chat_auth, text=f'Бот сломался с ошибкой {ex}')
