@@ -181,13 +181,17 @@ def run_script():
     my_bot.like_photo_by_hashtag()
     bot.send_message(chat_id=tg_chat_auth, text=f'Стартанул из-под ТРАЙ')
 
-try:
 
-    @bot.message_handler(commands=['start'])
-    def start_message(message):
+
+
+@bot.message_handler(commands=['start'])
+def start_message(message):
+    print("Bot started")
+    try:
         bot.send_message(message.chat.id, run_script())
-    bot.polling(none_stop=True)
+    except Exception as exep:
+        bot.send_message(chat_id=tg_chat_auth, text=f'Бот сломался с ошибкой {exep}')
 
 
-except Exception as exep:
-    bot.send_message(chat_id=tg_chat_auth, text=f'Бот сломался с ошибкой {exep}')
+bot.polling(none_stop=True)
+
