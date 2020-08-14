@@ -1,22 +1,18 @@
 tags = [
-# 'велогонка',
-'granfondorussia', 'шоссейныйвелосипед', 'tourdeklenovo', "велоспорт", "гранфондо",
+# 'велогонка', 'granfondorussia',
+'шоссейныйвелосипед', 'tourdeklenovo', "велоспорт", "гранфондо",
 "велоруза", 'велошоссе', 'велогонкасадовоекольцо', 'велогон', 'велогонки', 'велогонка',
-
 "ironstarkaliningrad", 'ironstar226', 'ironstarzavidovo', 'триатлонист', "триатлонцентр", "триатлон",
 "айронмен", "трилайф", 'ironstartriathlon', 'ironstarcrocus', 'ironstarrussia', 'триатлондляновичков',
 "триатлонец", "айронстар", "ironstartriathlon", "триатлонgirl",
 "ironstarsochi", "ironstarkazan", "ironstar", "триспорт", "триатлет", "тренерпотриатлону",
 "триатлонтренировки", "cycleonteam", "ilovesupersport",
-
 'iverswim', 'открытаявода', 'xwaters', 'swimstar',
-
 "wearegrut",  "бег", "бегвреден", "беганутые", "goldenringultratrail",
 "марафон", "московскиймарафон", "марафонецбеговыекроссовки",
 "гейтанализ", "бегайправильно",
 "wearegrom", "осеннийгром", "паркран",
 "бегун", "пробежка"
-
 ]
 
 skipped_friends = [

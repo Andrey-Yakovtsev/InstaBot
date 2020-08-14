@@ -143,7 +143,7 @@ class InstagramBot():
                     browser.get(url)
                     time.sleep(5)
                     self.get_list_of_post_likers()
-                    if self.find_already_liked_posts(): # Если еще не полайкали, то вперед
+                    if self.find_already_liked_posts():     # Если еще не полайкали, то вперед
                         browser.find_element_by_xpath(
                             '/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[1]/span[1]/button/div'
                         ).click()   #click to LIKE BUTTON
@@ -156,7 +156,7 @@ class InstagramBot():
                             ).click() #CLICK SUBSCRIBE BUTTON
                             subscribe_clicks += 1
                             bot.send_message(chat_id=tg_chat_auth, text=f'ПОДПИСОЧКА')
-                            time.sleep(random.randrange(5, 10))
+                            time.sleep(random.randrange(80, 100))
                     else:
                         bot.send_message(chat_id=tg_chat_auth, text=f'Лайк уже был')
                         time.sleep(random.randrange(10, 20))
@@ -191,6 +191,12 @@ def start_message(message):
         bot.send_message(message.chat.id, run_script())
     except Exception as exep:
         bot.send_message(chat_id=tg_chat_auth, text=f'Бот сломался с ошибкой {exep}')
+
+@bot.message_handler(commands=['stop'])
+def start_message(message):
+    bot.send_message(message.chat.id, exit(0))
+    bot.send_message(chat_id=tg_chat_auth, text=f'Тормознули бота руками')
+
 
 
 bot.polling(none_stop=True)
