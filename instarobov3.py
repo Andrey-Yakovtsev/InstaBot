@@ -20,9 +20,9 @@ class InstagramBot():
 
         self.username = username
         self.password = password
-        self.browser = webdriver.Firefox()
-        # self.options = Options()
-        # self.options.headless = True
+        self.options = Options()
+        self.options.headless = True
+        self.browser = webdriver.Firefox(options=self.options)
 
 
     # метод для закрытия браузера
