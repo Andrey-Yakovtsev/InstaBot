@@ -176,6 +176,7 @@ class InstagramBot():
 
 
 try:
+    bot.send_message(chat_id=tg_chat_auth, text=f'Стартанул из-под ТРАЙ')
     my_bot = InstagramBot(username, password)
     my_bot.login()
     my_bot.like_photo_by_hashtag()
