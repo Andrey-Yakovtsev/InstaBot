@@ -1,0 +1,11 @@
+INFO:trisport_russia:Session started!
+INFO:trisport_russia:-- Connection Checklist [1/2] (Internet Connection Status)
+INFO:trisport_russia:- Internet Connection Status: ok
+INFO:trisport_russia:- Current IP is "188.68.100.146" and it's from "Russia/RU"
+INFO:trisport_russia:-- Connection Checklist [2/2] (Hide Selenium Extension)
+INFO:trisport_russia:- window.navigator.webdriver response: True
+WARNING:trisport_russia:- Hide Selenium Extension: error
+INFO:trisport_russia:Timed out with failure while explicitly waiting until title contains 'Login' string!
+
+INFO:trisport_russia:Timed out with failure while explicitly waiting until visibility of element located!
+

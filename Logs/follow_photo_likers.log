@@ -1,0 +1,18 @@
+INFO:trisport_russia:Session started!
+INFO:trisport_russia:-- Connection Checklist [1/2] (Internet Connection Status)
+INFO:trisport_russia:- Internet Connection Status: ok
+INFO:trisport_russia:- Current IP is "188.68.100.146" and it's from "Russia/RU"
+INFO:trisport_russia:-- Connection Checklist [2/2] (Hide Selenium Extension)
+INFO:trisport_russia:- window.navigator.webdriver response: True
+WARNING:trisport_russia:- Hide Selenium Extension: error
+INFO:trisport_russia:Workspace in use: "/home/ayakovtsev/InstaPy"
+INFO:trisport_russia:Session started!
+INFO:trisport_russia:-- Connection Checklist [1/2] (Internet Connection Status)
+INFO:trisport_russia:- Internet Connection Status: ok
+INFO:trisport_russia:- Current IP is "188.68.100.146" and it's from "Russia/RU"
+INFO:trisport_russia:-- Connection Checklist [2/2] (Hide Selenium Extension)
+INFO:trisport_russia:- window.navigator.webdriver response: True
+WARNING:trisport_russia:- Hide Selenium Extension: error
+INFO:trisport_russia:Logged in successfully!
+INFO:trisport_russia:Saving account progress...
+INFO:trisport_russia:Starting to follow likers..

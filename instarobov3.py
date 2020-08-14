@@ -21,8 +21,8 @@ class InstagramBot():
         self.username = username
         self.password = password
         self.browser = webdriver.Firefox()
-        # self.options = Options()
-        # self.options.headless = True
+        self.options = Options()
+        self.options.headless = True
 
 
     # метод для закрытия браузера
@@ -144,24 +144,22 @@ class InstagramBot():
                     time.sleep(5)
                     self.get_list_of_post_likers()
                     if self.find_already_liked_posts(): # Если еще не полайкали, то вперед
-                        # browser.find_element_by_xpath(
-                        #     '/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[1]/span[1]/button/div'
-                        # ).click()   #click to LIKE BUTTON
-                        # like_clicks +=1
-                        print('Лайкнули')
+                        browser.find_element_by_xpath(
+                            '/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[1]/span[1]/button/div'
+                        ).click()   #click to LIKE BUTTON
+                        like_clicks +=1
                         bot.send_message(chat_id=tg_chat_auth, text=f'Новый лайк')
                         time.sleep(random.randrange(80, 100))
                         if url_counter % 10 == 0:
-                            # browser.find_element_by_xpath(
-                            #     '/html/body/div[1]/section/main/div/div[1]/article/header/div[2]/div[1]/div[2]/button'
-                            # ).click() #CLICK SUBSCRIBE BUTTON
+                            browser.find_element_by_xpath(
+                                '/html/body/div[1]/section/main/div/div[1]/article/header/div[2]/div[1]/div[2]/button'
+                            ).click() #CLICK SUBSCRIBE BUTTON
                             subscribe_clicks += 1
-                            bot.send_message(chat_id=tg_chat_auth, text=f'Подписочка')
+                            bot.send_message(chat_id=tg_chat_auth, text=f'ПОДПИСОЧКА')
                             time.sleep(random.randrange(5, 10))
                     else:
-                        print('Уже пролайкали')
                         bot.send_message(chat_id=tg_chat_auth, text=f'Лайк уже был')
-                        time.sleep(random.randrange(30, 50))
+                        time.sleep(random.randrange(10, 20))
                         continue
 
                 except Exception as ex:
@@ -170,7 +168,9 @@ class InstagramBot():
             bot.send_message(chat_id=tg_chat_auth, text=f'Бот по тэгу {hashtag} закончил. Likes: {like_clicks}. '
                                                         f'Подписок {subscribe_clicks}')
             time.sleep(random.randrange(80, 100))
-        self.close_browser()
+            ht_counter += 1
+
+            self.close_browser()
         bot.send_message(chat_id=tg_chat_auth, text=f'Бот ВООБЩЕ ВСЕ СДЕЛАЛ И ЗАКОНЧИЛ. Налупили лайков: {like_clicks}'
                                                     f'и {subscribe_clicks} подписок')
 
