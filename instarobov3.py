@@ -132,12 +132,12 @@ class InstagramBot():
 
             for i in range(1, 6):
                 browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                time.sleep(random.randrange(3, 5))
+                time.sleep(random.randrange(5, 8))
 
             hrefs = browser.find_elements_by_tag_name('a')
             posts_urls = [item.get_attribute('href') for item in hrefs if "/p/" in item.get_attribute('href')]
             url_counter = 0
-            for url in posts_urls[10:random.randrange(20, 50)]: # liking for random posts under 1 hashtag starting from 10th as "newest"
+            for url in posts_urls[10:random.randrange(20, 51)]: # liking for random posts under 1 hashtag starting from 10th as "newest"
                 url_counter += 1
                 try:
                     browser.get(url)
@@ -170,18 +170,16 @@ class InstagramBot():
             time.sleep(random.randrange(80, 100))
             ht_counter += 1
 
-            self.close_browser()
+        self.close_browser()
         bot.send_message(chat_id=tg_chat_auth, text=f'Бот ВООБЩЕ ВСЕ СДЕЛАЛ И ЗАКОНЧИЛ. Налупили лайков: {like_clicks}'
                                                     f'и {subscribe_clicks} подписок')
 
 
 def run_script():
     my_bot = InstagramBot(username, password)
+    bot.send_message(chat_id=tg_chat_auth, text=f'Он сказал: "ПОЕХАЛИ!"')
     my_bot.login()
     my_bot.like_photo_by_hashtag()
-    bot.send_message(chat_id=tg_chat_auth, text=f'Стартанул из-под ТРАЙ')
-
-
 
 
 @bot.message_handler(commands=['start'])
@@ -192,11 +190,10 @@ def start_message(message):
     except Exception as exep:
         bot.send_message(chat_id=tg_chat_auth, text=f'Бот сломался с ошибкой {exep}')
 
-@bot.message_handler(commands=['stop'])
-def start_message(message):
-    bot.send_message(message.chat.id, exit(0))
-    bot.send_message(chat_id=tg_chat_auth, text=f'Тормознули бота руками')
-
+# @bot.message_handler(commands=['stop'])
+# def start_message(message):
+#     bot.send_message(message.chat.id, my_bot.close_browser())
+#     bot.send_message(chat_id=tg_chat_auth, text=f'Тормознули бота руками')
 
 
 bot.polling(none_stop=True)
