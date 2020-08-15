@@ -130,9 +130,9 @@ class InstagramBot():
             bot.send_message(chat_id=tg_chat_auth, text=f'Бот {hashtag}  стартанул.'
                                                         f'Tag {ht_counter}/{len(tags)}')
 
-            for i in range(1, 6):
+            for i in range(1, 5):
                 browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                time.sleep(random.randrange(5, 8))
+                time.sleep(random.randrange(15, 20))
 
             hrefs = browser.find_elements_by_tag_name('a')
             posts_urls = [item.get_attribute('href') for item in hrefs if "/p/" in item.get_attribute('href')]
@@ -164,7 +164,7 @@ class InstagramBot():
 
                 except Exception as ex:
                     print(ex)
-                    bot.send_message(chat_id=tg_chat_auth, text=f'Бот сломался с ошибкой {ex}')
+                    bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри функции {ex}')
             bot.send_message(chat_id=tg_chat_auth, text=f'Бот по тэгу {hashtag} закончил. Likes: {like_clicks}. '
                                                         f'Подписок {subscribe_clicks}')
             time.sleep(random.randrange(80, 100))
@@ -175,20 +175,22 @@ class InstagramBot():
                                                     f'и {subscribe_clicks} подписок')
 
 
-def run_script():
+# def run_script():
+try:
     my_bot = InstagramBot(username, password)
     bot.send_message(chat_id=tg_chat_auth, text=f'Он сказал: "ПОЕХАЛИ!"')
     my_bot.login()
     my_bot.like_photo_by_hashtag()
+except Exception as exep:
+    bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри основного старта: {exep}')
 
-
-@bot.message_handler(commands=['start'])
-def start_message(message):
-    print("Bot started")
-    try:
-        bot.send_message(message.chat.id, run_script())
-    except Exception as exep:
-        bot.send_message(chat_id=tg_chat_auth, text=f'Бот сломался с ошибкой {exep}')
+# @bot.message_handler(commands=['start'])
+# def start_message(message):
+#     print("Bot started")
+# try:
+#     bot.send_message(message.chat.id, run_script())
+# except Exception as exep:
+#     bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри основного старта: {exep}')
 
 # @bot.message_handler(commands=['stop'])
 # def start_message(message):
@@ -196,5 +198,5 @@ def start_message(message):
 #     bot.send_message(chat_id=tg_chat_auth, text=f'Тормознули бота руками')
 
 
-bot.polling(none_stop=True)
+# bot.polling(none_stop=True)
 
