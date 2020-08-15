@@ -5391,3 +5391,12 @@ JavaScript error: , line 0: UnknownError: The operation failed for reasons unrel
 1597439652269	Marionette	INFO	Stopped listening on port 33113
 JavaScript error: , line 0: UnknownError: The operation failed for reasons unrelated to the database itself and not covered by any other error code.
 1597439654165	Marionette	INFO	Stopped listening on port 36849
+1597515344773	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileDRyU43"
+*** You are running in headless mode.
+console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
+1597515349128	Marionette	INFO	Listening on port 44993
+1597515349186	Marionette	WARN	TLS certificate errors will be ignored for this session
+Exiting due to channel error.
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+Exiting due to channel error.
+Exiting due to channel error.

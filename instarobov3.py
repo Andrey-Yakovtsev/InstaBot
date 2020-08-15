@@ -172,7 +172,7 @@ class InstagramBot():
 
         bot.send_message(chat_id=tg_chat_auth, text=f'Бот ВООБЩЕ ВСЕ СДЕЛАЛ И ЗАКОНЧИЛ. Налупили лайков: {like_clicks}'
                                                     f'и {subscribe_clicks} подписок')
-        self.close_browser()
+
 
 
 # def run_script():
@@ -208,5 +208,6 @@ try:
     my_bot.login()
     bot.send_message(chat_id=tg_chat_auth, text=f'Залогинился')
     my_bot.like_photo_by_hashtag()
+    my_bot.close_browser()
 except Exception as exep:
     bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри основного старта: {exep}')
