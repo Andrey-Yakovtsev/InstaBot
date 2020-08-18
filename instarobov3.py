@@ -137,7 +137,7 @@ class InstagramBot():
             hrefs = browser.find_elements_by_tag_name('a')
             posts_urls = [item.get_attribute('href') for item in hrefs if "/p/" in item.get_attribute('href')]
             url_counter = 0
-            for url in posts_urls[10:random.randrange(20, 51)]: # liking for random posts under 1 hashtag starting from 10th as "newest"
+            for url in posts_urls[10:random.randrange(15, len(posts_urls))]: # liking for random posts under 1 hashtag starting from 10th as "newest"
                 url_counter += 1
                 try:
                     browser.get(url)
