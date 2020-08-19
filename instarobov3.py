@@ -23,7 +23,9 @@ class InstagramBot():
         self.password = password
         self.options = Options()
         self.options.headless = True
-        self.browser = webdriver.Firefox(options=self.options)
+        self.profile = webdriver.FirefoxProfile()
+        self.profile.set_preference("general.useragent.override", "Mozilla/5.0")
+        self.browser = webdriver.Firefox(self.profile, options=self.options)
 
 
     # метод для закрытия браузера
@@ -142,8 +144,7 @@ class InstagramBot():
             for url in posts_urls[10:random.randrange(20, 31)]: # liking for random posts under 1 hashtag starting from 10th as "newest"
                 url_counter += 1
                 try:
-                    user_agent = {'User-agent': 'Mozilla/5.0'}
-                    browser.get(url, headers=user_agent)
+                    browser.get(url)
                     time.sleep(5)
                     self.get_list_of_post_likers()
                     if self.find_already_liked_posts():     # Если еще не полайкали, то вперед
