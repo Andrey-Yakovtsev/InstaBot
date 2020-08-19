@@ -121,7 +121,7 @@ class InstagramBot():
 
     # метод ставит лайки по hashtag
     def like_photo_by_hashtag(self):
-        logging.basicConfig(filename="Logs/like_by_tags.log", level=logging.INFO, filemode='w')
+        logging.basicConfig(filename="Logs/like_photo_by_hashtag.log", level=logging.INFO, filemode='w')
         like_clicks = 0
         subscribe_clicks = 0
         ht_counter = 1
