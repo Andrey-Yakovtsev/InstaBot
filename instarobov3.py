@@ -1,3 +1,4 @@
+import logging
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options
@@ -120,6 +121,7 @@ class InstagramBot():
 
     # метод ставит лайки по hashtag
     def like_photo_by_hashtag(self):
+        logging.basicConfig(filename="Logs/like_by_tags.log", level=logging.INFO, filemode='w')
         like_clicks = 0
         subscribe_clicks = 0
         ht_counter = 1
@@ -137,10 +139,11 @@ class InstagramBot():
             hrefs = browser.find_elements_by_tag_name('a')
             posts_urls = [item.get_attribute('href') for item in hrefs if "/p/" in item.get_attribute('href')]
             url_counter = 0
-            for url in posts_urls[10:random.randrange(15, len(posts_urls))]: # liking for random posts under 1 hashtag starting from 10th as "newest"
+            for url in posts_urls[10:random.randrange(20, 31)]: # liking for random posts under 1 hashtag starting from 10th as "newest"
                 url_counter += 1
                 try:
-                    browser.get(url)
+                    user_agent = {'User-agent': 'Mozilla/5.0'}
+                    browser.get(url, user_agent)
                     time.sleep(5)
                     self.get_list_of_post_likers()
                     if self.find_already_liked_posts():     # Если еще не полайкали, то вперед
