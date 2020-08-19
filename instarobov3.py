@@ -143,7 +143,7 @@ class InstagramBot():
                 url_counter += 1
                 try:
                     user_agent = {'User-agent': 'Mozilla/5.0'}
-                    browser.get(url, user_agent)
+                    browser.get(url, headers=user_agent)
                     time.sleep(5)
                     self.get_list_of_post_likers()
                     if self.find_already_liked_posts():     # Если еще не полайкали, то вперед
