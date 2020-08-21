@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options
 from auth_data import username, password, bot_creds, tg_chat_auth
-from datasets import tags, skipped_friends, to_follow_list
+from datasets import tags
 import time
 import random
 from selenium.common.exceptions import NoSuchElementException
@@ -14,11 +14,11 @@ import telebot
 
 bot = telebot.TeleBot(bot_creds)
 
-class InstagramBot():
+
+class InstagramBot:
     """Instagram Bot на Python by PythonToday"""
 
     def __init__(self, username, password):
-
         self.username = username
         self.password = password
         self.options = Options()
@@ -26,7 +26,6 @@ class InstagramBot():
         self.profile = webdriver.FirefoxProfile()
         self.profile.set_preference("general.useragent.override", "Mozilla/5.0")
         self.browser = webdriver.Firefox(self.profile, options=self.options)
-
 
     # метод для закрытия браузера
     def close_browser(self):
@@ -71,9 +70,9 @@ class InstagramBot():
         soup = BeautifulSoup(requiredHtml, 'html.parser')
         liked_post = soup.find_all('span', class_='fr66n')  # '_8-yf5 '
         for item in liked_post:
-            svg = item.find('svg') #Нашел контейнер
+            svg = item.find('svg')  #Нашел контейнер
             lookup = str(svg).split('=')
-            like = '"Не нравится" class' #Нашел строчку, которая говорит, что уже полайкано
+            like = '"Не нравится" class'  #Нашел строчку, которая говорит, что уже полайкано
             if like in lookup:
                 return False
             else:
@@ -81,8 +80,8 @@ class InstagramBot():
 
 
     def skip_if_already_subscribed(self):
-        '''Если подписаны уже, то скипаем пост
-        (но Юзер-то м.б. не подписан на нас!!!!)'''
+        """Если подписаны уже, то скипаем пост
+        (но Юзер-то м.б. не подписан на нас!!!!)"""
 
         requiredHtml = self.browser.page_source
         soup = BeautifulSoup(requiredHtml, 'html.parser')
@@ -97,10 +96,10 @@ class InstagramBot():
             return False
 
     def get_list_of_post_likers(self):
-        '''
+        """
         собираем список эккаунтов тех, кто лайкнул пост по хаштегу
         :return: список урлов-аккаунтов лайкеров
-        '''
+        """
         # self.browser.find_element_by_xpath(
         # '/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[2]/div/div[2]/button'
         # ).click()
@@ -141,7 +140,7 @@ class InstagramBot():
             hrefs = browser.find_elements_by_tag_name('a')
             posts_urls = [item.get_attribute('href') for item in hrefs if "/p/" in item.get_attribute('href')]
             url_counter = 0
-            for url in posts_urls[10:random.randrange(20, 31)]: # liking for random posts under 1 hashtag starting from 10th as "newest"
+            for url in posts_urls[10:random.randrange(30, 51)]: # liking for random posts under 1 hashtag starting from 10th as "newest"
                 url_counter += 1
                 try:
                     browser.get(url)
@@ -178,40 +177,39 @@ class InstagramBot():
                                                     f'и {subscribe_clicks} подписок')
 
 
-
-# def run_script():
-#     my_bot = InstagramBot(username, password)
-#     # bot.send_message(chat_id=tg_chat_auth, text=f'Он сказал: "ПОЕХАЛИ!"')
-#     my_bot.login()
-#     # bot.send_message(chat_id=tg_chat_auth, text=f'Залогинился')
-#     my_bot.like_photo_by_hashtag()
-#
-# @bot.message_handler(commands=['start'])
-# def start_message(message):
-#     print("Bot started")
-#     try:
-#         my_bot = InstagramBot(username, password)
-#         bot.send_message(chat_id=tg_chat_auth, text=f'Он сказал: "ПОЕХАЛИ!"')
-#         my_bot.login()
-#         bot.send_message(chat_id=tg_chat_auth, text=f'Залогинился')
-#         bot.send_message(message.chat.id, run_script())
-#     except Exception as exep:
-#         bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри блока трай: {exep}')
-
-# @bot.message_handler(commands=['stop'])
-# def start_message(message):
-#     bot.send_message(message.chat.id, my_bot.close_browser()) #check HERE
-#     bot.send_message(chat_id=tg_chat_auth, text=f'Тормознули бота руками')
-
-
-# bot.polling(none_stop=True)
-
-try:
+def run_script():
     my_bot = InstagramBot(username, password)
     bot.send_message(chat_id=tg_chat_auth, text=f'Он сказал: "ПОЕХАЛИ!"')
     my_bot.login()
     bot.send_message(chat_id=tg_chat_auth, text=f'Залогинился')
     my_bot.like_photo_by_hashtag()
-    my_bot.close_browser()
-except Exception as exep:
-    bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри основного старта: {exep}')
+
+
+@bot.message_handler(commands=['start'])
+def start_message(message):
+    print("Bot started")
+    try:
+        bot.send_message(message.chat.id, run_script())
+    except Exception as exep:
+        bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри блока трай: {exep}')
+
+
+@bot.message_handler(commands=['stop'])
+def start_message(message):
+    my_bot = InstagramBot(username, password)
+    bot.send_message(message.chat.id, my_bot.close_browser())
+    print('Bot stopped')
+    bot.send_message(chat_id=tg_chat_auth, text=f'Тормознули бота руками')
+
+
+bot.polling(none_stop=True)
+#
+# try:
+#     my_bot = InstagramBot(username, password)
+#     bot.send_message(chat_id=tg_chat_auth, text=f'Он сказал: "ПОЕХАЛИ!"')
+#     my_bot.login()
+#     bot.send_message(chat_id=tg_chat_auth, text=f'Залогинился')
+#     my_bot.like_photo_by_hashtag()
+#     my_bot.close_browser()
+# except Exception as exep:
+#     bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри основного старта: {exep}')
