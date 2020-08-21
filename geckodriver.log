@@ -5615,3 +5615,9 @@ console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Err
 1597991217981	Marionette	INFO	Listening on port 37025
 1597991218059	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
