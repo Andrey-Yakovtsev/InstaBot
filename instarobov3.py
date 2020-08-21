@@ -122,7 +122,7 @@ class InstagramBot:
 
     # метод ставит лайки по hashtag
     def like_photo_by_hashtag(self):
-        logging.basicConfig(filename="Logs/like_photo_by_hashtag.log", level=logging.INFO, filemode='a')
+        logging.basicConfig(filename="Logs/like_photo_by_hashtag.log", level=logging.INFO, filemode='w')
         like_clicks = 0
         subscribe_clicks = 0
         ht_counter = 1
@@ -177,39 +177,40 @@ class InstagramBot:
                                                     f'и {subscribe_clicks} подписок')
 
 
-def run_script():
-    my_bot = InstagramBot(username, password)
-    bot.send_message(chat_id=tg_chat_auth, text=f'Он сказал: "ПОЕХАЛИ!"')
-    my_bot.login()
-    bot.send_message(chat_id=tg_chat_auth, text=f'Залогинился')
-    my_bot.like_photo_by_hashtag()
-
-
-@bot.message_handler(commands=['start'])
-def start_message(message):
-    print("Bot started")
-    try:
-        bot.send_message(message.chat.id, run_script())
-    except Exception as exep:
-        bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри блока трай: {exep}')
-
-
-@bot.message_handler(commands=['stop'])
-def start_message(message):
-    my_bot = InstagramBot(username, password)
-    bot.send_message(message.chat.id, my_bot.close_browser())
-    print('Bot stopped')
-    bot.send_message(chat_id=tg_chat_auth, text=f'Тормознули бота руками')
-
-
-bot.polling(none_stop=True)
-#
-# try:
+# def run_script():
 #     my_bot = InstagramBot(username, password)
 #     bot.send_message(chat_id=tg_chat_auth, text=f'Он сказал: "ПОЕХАЛИ!"')
 #     my_bot.login()
 #     bot.send_message(chat_id=tg_chat_auth, text=f'Залогинился')
 #     my_bot.like_photo_by_hashtag()
-#     my_bot.close_browser()
-# except Exception as exep:
-#     bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри основного старта: {exep}')
+#
+#
+# @bot.message_handler(commands=['start'])
+# def start_message(message):
+#     print("Bot started")
+#     try:
+#         bot.send_message(message.chat.id, run_script())
+#     except Exception as exep:
+#         bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри блока трай: {exep}')
+#
+#
+# @bot.message_handler(commands=['stop'])
+# def start_message(message):
+#     my_bot = InstagramBot(username, password)
+#     bot.send_message(message.chat.id, my_bot.close_browser())
+#     print('Bot stopped')
+#     bot.send_message(chat_id=tg_chat_auth, text=f'Тормознули бота руками')
+#
+#
+# bot.polling(none_stop=True)
+
+
+try:
+    my_bot = InstagramBot(username, password)
+    bot.send_message(chat_id=tg_chat_auth, text=f'Он сказал: "ПОЕХАЛИ!"')
+    my_bot.login()
+    bot.send_message(chat_id=tg_chat_auth, text=f'Залогинился')
+    my_bot.like_photo_by_hashtag()
+    my_bot.close_browser()
+except Exception as exep:
+    bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри основного старта: {exep}')

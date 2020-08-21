@@ -5,7 +5,6 @@ tags = [
 "велоруза", 'granfondorussia',
 'шоссейныйвелосипед', 'tourdeklenovo', "велоспорт",
 'велошоссе', 'велогонкасадовоекольцо', 'велогон', 'велогонки',
-
 "ironstarkaliningrad",  'triathlonrussia', 'ironstarzavidovo', 'ironstarrussia',
 'russiankona', 'ironstar226', 'триатлондубна',
 "триатлонец", 'триатлонист', "триатлон", "триатлонgirl",
@@ -15,12 +14,8 @@ tags = [
 'николовперевоз', "триспорт", "триатлет", "тренерпотриатлону",
 "ironstarsochi", "ironstarkazan", "ironstar",
 "триатлонтренировки", "cycleonteam", "ilovesupersport",
-
 'калашниковспорт', "наспорте",
-
-
 'iverswim', 'открытаявода', 'xwaters', 'swimstar',
-
 "wearegrut",  "бег", "бегвреден", "беганутые", "goldenringultratrail",
 "марафон", "московскиймарафон", "марафонецбеговыекроссовки",
 "гейтанализ", "бегайправильно", 'russiarunning',
