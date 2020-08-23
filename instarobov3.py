@@ -20,7 +20,6 @@ class InstagramBot:
     """Instagram Bot на Python by PythonToday"""
 
     def __init__(self, username, password):
-        LOGGER.setLevel(logging.INFO)
         self.username = username
         self.password = password
         self.options = Options()
@@ -130,6 +129,9 @@ class InstagramBot:
         browser = self.browser
         for hashtag in tags:
             browser.get(f'https://www.instagram.com/explore/tags/{hashtag}/')
+            print(browser.title)
+            print(browser.current_url)
+            browser.save_screenshot('screensots.png')
             print('Получил список ХТ')
             time.sleep(5)
             bot.send_message(chat_id=tg_chat_auth, text=f'Бот {hashtag}  стартанул.'
@@ -138,7 +140,7 @@ class InstagramBot:
             for i in range(1, 5):
                 browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
                 print('Покрутил список')
-                time.sleep(random.randrange(15, 20))
+                time.sleep(5) #random.randrange(15, 20))
 
             hrefs = browser.find_elements_by_tag_name('a')
             print('Нашел ссылки с тегом а')
