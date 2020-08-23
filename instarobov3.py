@@ -143,7 +143,7 @@ class InstagramBot:
             hrefs = browser.find_elements_by_tag_name('a')
             print('Нашел ссылки с тегом а')
             posts_urls = [item.get_attribute('href') for item in hrefs if "/p/" in item.get_attribute('href')]
-            print('Набил список', url_counter)
+            print('Набил список', posts_urls)
 
             url_counter = 0
             print('Стою у цикла')
