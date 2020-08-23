@@ -204,7 +204,7 @@ class InstagramBot:
 
 
 try:
-    logging.basicConfig(filename="Logs/like_photo_by_hashtag.log", level=logging.INFO, filemode='w')
+    logging.basicConfig(filename="Logs/like_photo_by_hashtag.log", level=logging.INFO, filemode='w+')
     my_bot = InstagramBot(username, password)
     bot.send_message(chat_id=tg_chat_auth, text=f'Он сказал: "ПОЕХАЛИ!"')
     my_bot.login()
