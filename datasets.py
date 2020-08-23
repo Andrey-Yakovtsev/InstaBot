@@ -1,5 +1,5 @@
 tags = [
-'наспорте',
+# 'наспорте',
 # 'калашниковспорт',
 # 'iverswim', 'открытаявода', 'xwaters', 'swimstar',
 # "wearegrut",  "бег", "бегвреден", "беганутые", "goldenringultratrail",
@@ -10,15 +10,17 @@ tags = [
 #
 #
 # "айронмен", "трилайф",  'триатлондляновичков',
-# "айронстар", "ironstartriathlon",   "триатлонцентр",
-# 'николовперевоз', "триспорт", "триатлет", "тренерпотриатлону",
-# "ironstarsochi", "ironstarkazan", "ironstar",
+#  "триатлонцентр",
+#  "триспорт", "триатлет", "тренерпотриатлону",
+# "ironstarsochi", "ironstarkazan",
+    "ironstar", "айронстар", 'ironstarrussia', 'ironstartriathlon', 'ironstarcrocus',
+'триатлондубна', 'николовперевоз',
 # "триатлонтренировки", "cycleonteam", "ilovesupersport",
 #
-# "ironstarkaliningrad",  'triathlonrussia', 'ironstarzavidovo', 'ironstarrussia',
-# 'russiankona', 'ironstar226', 'триатлондубна',
+# "ironstarkaliningrad",  'triathlonrussia', 'ironstarzavidovo',
+# 'russiankona', 'ironstar226',
 # "триатлонец", 'триатлонист', "триатлон", "триатлонgirl",
-# 'ironstartriathlon', 'ironstarcrocus',
+#
 #
 # 'велогонка', 'granfondorussia',
 # 'шоссейныйвелосипед', 'tourdeklenovo', "гранфондо",

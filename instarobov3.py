@@ -23,7 +23,7 @@ class InstagramBot:
         self.username = username
         self.password = password
         self.options = Options()
-        self.options.headless = True
+        # self.options.headless = True
         self.profile = webdriver.FirefoxProfile()
         self.profile.set_preference("general.useragent.override", "Mozilla/5.0")
         self.browser = webdriver.Firefox(self.profile, options=self.options)
@@ -52,7 +52,7 @@ class InstagramBot:
         password_input.send_keys(password)
 
         password_input.send_keys(Keys.ENTER)
-        time.sleep(5)
+        time.sleep(50)
 
     '''ищет кнопку "Подписаться". Пока решил ее не запускать.
     Потом можно в цикла по хэштегам поставить слайс на каждый 5й, например...'''
@@ -137,10 +137,10 @@ class InstagramBot:
             bot.send_message(chat_id=tg_chat_auth, text=f'Бот {hashtag}  стартанул.'
                                                         f'Tag {ht_counter}/{len(tags)}')
 
-            for i in range(1, 5):
+            for i in range(1, 9):
                 browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
                 print('Покрутил список')
-                time.sleep(5) #random.randrange(15, 20))
+                time.sleep(random.randrange(15, 20))
 
             hrefs = browser.find_elements_by_tag_name('a')
             print('Нашел ссылки с тегом а')
@@ -149,7 +149,7 @@ class InstagramBot:
 
             url_counter = 0
             print('Стою у цикла')
-            for url in posts_urls[10:13]:  #[10:random.randrange(30, 51)]: # liking for random posts under 1 hashtag starting from 10th as "newest"
+            for url in posts_urls[10:random.randrange(50, len(posts_urls))]: # liking for random posts under 1 hashtag starting from 10th as "newest"
                 print('зашел в цикл')
                 print(url)
                 url_counter += 1
