@@ -139,12 +139,11 @@ class InstagramBot:
             hrefs = browser.find_elements_by_tag_name('a')
             posts_urls = [item.get_attribute('href') for item in hrefs if "/p/" in item.get_attribute('href')]
             url_counter = 0
-            for url in posts_urls[10:random.randrange(30, 51)]: # liking for random posts under 1 hashtag starting from 10th as "newest"
+            for url in posts_urls[10:13]:  #[10:random.randrange(30, 51)]: # liking for random posts under 1 hashtag starting from 10th as "newest"
                 url_counter += 1
                 try:
                     browser.get(url)
                     time.sleep(5)
-                    self.get_list_of_post_likers()
                     if self.find_already_liked_posts():     # Если еще не полайкали, то вперед
                         browser.find_element_by_xpath(
                             '/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[1]/span[1]/button/div'
@@ -205,7 +204,7 @@ class InstagramBot:
 
 
 try:
-    logging.basicConfig(filename="Logs/like_photo_by_hashtag.log", level=logging.DEBUG, filemode='w')
+    logging.basicConfig(filename="Logs/like_photo_by_hashtag.log", level=logging.INFO, filemode='w')
     my_bot = InstagramBot(username, password)
     bot.send_message(chat_id=tg_chat_auth, text=f'Он сказал: "ПОЕХАЛИ!"')
     my_bot.login()

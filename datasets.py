@@ -1,26 +1,29 @@
 tags = [
-'велогонка',
-'granfondorussia',
-'шоссейныйвелосипед', 'tourdeklenovo', "велоспорт", "гранфондо",
-"велоруза", 'granfondorussia',
-'шоссейныйвелосипед', 'tourdeklenovo', "велоспорт",
-'велошоссе', 'велогонкасадовоекольцо', 'велогон', 'велогонки',
-"ironstarkaliningrad",  'triathlonrussia', 'ironstarzavidovo', 'ironstarrussia',
-'russiankona', 'ironstar226', 'триатлондубна',
-"триатлонец", 'триатлонист', "триатлон", "триатлонgirl",
-'ironstartriathlon', 'ironstarcrocus',
-"айронмен", "трилайф",  'триатлондляновичков',
-"айронстар", "ironstartriathlon",   "триатлонцентр",
-'николовперевоз', "триспорт", "триатлет", "тренерпотриатлону",
-"ironstarsochi", "ironstarkazan", "ironstar",
-"триатлонтренировки", "cycleonteam", "ilovesupersport",
-'калашниковспорт', "наспорте",
-'iverswim', 'открытаявода', 'xwaters', 'swimstar',
-"wearegrut",  "бег", "бегвреден", "беганутые", "goldenringultratrail",
-"марафон", "московскиймарафон", "марафонецбеговыекроссовки",
-"гейтанализ", "бегайправильно", 'russiarunning',
-"wearegrom", "осеннийгром", "паркран",
-"бегун", "пробежка", "московскийполумарафон"
+'наспорте',
+# 'калашниковспорт',
+# 'iverswim', 'открытаявода', 'xwaters', 'swimstar',
+# "wearegrut",  "бег", "бегвреден", "беганутые", "goldenringultratrail",
+# "марафон", "московскиймарафон", "марафонецбеговыекроссовки",
+# "гейтанализ", "бегайправильно", 'russiarunning',
+# "wearegrom", "осеннийгром", "паркран",
+# "бегун", "пробежка", "московскийполумарафон",
+#
+#
+# "айронмен", "трилайф",  'триатлондляновичков',
+# "айронстар", "ironstartriathlon",   "триатлонцентр",
+# 'николовперевоз', "триспорт", "триатлет", "тренерпотриатлону",
+# "ironstarsochi", "ironstarkazan", "ironstar",
+# "триатлонтренировки", "cycleonteam", "ilovesupersport",
+#
+# "ironstarkaliningrad",  'triathlonrussia', 'ironstarzavidovo', 'ironstarrussia',
+# 'russiankona', 'ironstar226', 'триатлондубна',
+# "триатлонец", 'триатлонист', "триатлон", "триатлонgirl",
+# 'ironstartriathlon', 'ironstarcrocus',
+#
+# 'велогонка', 'granfondorussia',
+# 'шоссейныйвелосипед', 'tourdeklenovo', "гранфондо",
+# "велоруза", 'tourdeklenovo', "велоспорт",
+# 'велошоссе', 'велогонкасадовоекольцо', 'велогон', 'велогонки'
 ]
 
 skipped_friends = [
