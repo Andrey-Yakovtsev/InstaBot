@@ -1,5 +1,6 @@
 import logging
 from selenium import webdriver
+from selenium.webdriver.remote.remote_connection import LOGGER
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.options import Options
 from auth_data import username, password, bot_creds, tg_chat_auth
@@ -19,6 +20,7 @@ class InstagramBot:
     """Instagram Bot на Python by PythonToday"""
 
     def __init__(self, username, password):
+        LOGGER.setLevel(logging.INFO)
         self.username = username
         self.password = password
         self.options = Options()
@@ -128,21 +130,32 @@ class InstagramBot:
         browser = self.browser
         for hashtag in tags:
             browser.get(f'https://www.instagram.com/explore/tags/{hashtag}/')
+            print('Получил список ХТ')
             time.sleep(5)
             bot.send_message(chat_id=tg_chat_auth, text=f'Бот {hashtag}  стартанул.'
                                                         f'Tag {ht_counter}/{len(tags)}')
 
             for i in range(1, 5):
                 browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                print('Покрутил список')
                 time.sleep(random.randrange(15, 20))
 
             hrefs = browser.find_elements_by_tag_name('a')
+            print('Нашел ссылки с тегом а')
             posts_urls = [item.get_attribute('href') for item in hrefs if "/p/" in item.get_attribute('href')]
+            print('Набил список', url_counter)
+
             url_counter = 0
+            print('Стою у цикла')
             for url in posts_urls[10:13]:  #[10:random.randrange(30, 51)]: # liking for random posts under 1 hashtag starting from 10th as "newest"
+                print('зашел в цикл')
+                print(url)
                 url_counter += 1
+                print('Счечик урлов', url_counter, 'Перехожу по ссылкам профилей')
                 try:
+
                     browser.get(url)
+                    print('Попытался сгонять по ссылке профиля', url)
                     time.sleep(5)
                     if self.find_already_liked_posts():     # Если еще не полайкали, то вперед
                         browser.find_element_by_xpath(
@@ -205,6 +218,8 @@ class InstagramBot:
 
 try:
     logging.basicConfig(filename="Logs/like_photo_by_hashtag.log", level=logging.INFO, filemode='w+')
+    logger = logging.getLogger('Botlogging:')
+    logging.info("Informational message")
     my_bot = InstagramBot(username, password)
     bot.send_message(chat_id=tg_chat_auth, text=f'Он сказал: "ПОЕХАЛИ!"')
     my_bot.login()
