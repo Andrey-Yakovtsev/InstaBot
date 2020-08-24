@@ -1,3 +1,6 @@
 # Project exclude paths
 /venv/
 auth_data.py
+geckodriver.log
+screensots.png
+/Logs
