@@ -13,19 +13,19 @@ tags = [
 #  "триатлонцентр",
 #  "триспорт", "триатлет", "тренерпотриатлону",
 # "ironstarsochi", "ironstarkazan",
-    "ironstar", "айронстар", 'ironstarrussia', 'ironstartriathlon', 'ironstarcrocus',
-'триатлондубна', 'николовперевоз',
+"ironstar", "айронстар", 'ironstarrussia', 'ironstartriathlon', 'ironstarcrocus',
+'триатлондубна', 'николовперевоз', 'ironstarzavidovo'
 # "триатлонтренировки", "cycleonteam", "ilovesupersport",
 #
 # "ironstarkaliningrad",  'triathlonrussia', 'ironstarzavidovo',
 # 'russiankona', 'ironstar226',
-# "триатлонец", 'триатлонист', "триатлон", "триатлонgirl",
+"триатлонец", 'триатлонист', "триатлон", "триатлонgirl",
 #
-#
-# 'велогонка', 'granfondorussia',
-# 'шоссейныйвелосипед', 'tourdeklenovo', "гранфондо",
-# "велоруза", 'tourdeklenovo', "велоспорт",
-# 'велошоссе', 'велогонкасадовоекольцо', 'велогон', 'велогонки'
+
+"letapmoscow", 'велогонка', 'granfondorussia',
+'шоссейныйвелосипед', 'tourdeklenovo', "гранфондо",
+"велоруза", 'tourdeklenovo', "велоспорт",
+'велошоссе', 'велогонкасадовоекольцо', 'велогон', 'велогонки'
 ]
 
 skipped_friends = [
