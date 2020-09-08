@@ -129,35 +129,35 @@ class InstagramBot:
         browser = self.browser
         for hashtag in tags:
             browser.get(f'https://www.instagram.com/explore/tags/{hashtag}/')
-            print(browser.title)
-            print(browser.current_url)
+            # print(browser.title)
+            # print(browser.current_url)
             browser.save_screenshot('screensots.png')
-            print('Получил список ХТ')
+            # print('Получил список ХТ')
             time.sleep(5)
             bot.send_message(chat_id=tg_chat_auth, text=f'Бот {hashtag}  стартанул.'
                                                         f'Tag {ht_counter}/{len(tags)}')
 
             for i in range(1, 9):
                 browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                print('Покрутил список')
+                # print('Покрутил список')
                 time.sleep(random.randrange(15, 20))
 
             hrefs = browser.find_elements_by_tag_name('a')
-            print('Нашел ссылки с тегом а')
+            # print('Нашел ссылки с тегом а')
             posts_urls = [item.get_attribute('href') for item in hrefs if "/p/" in item.get_attribute('href')]
-            print('Набил список', posts_urls)
+            # print('Набил список', posts_urls)
 
             url_counter = 0
-            print('Стою у цикла')
-            for url in posts_urls[10:random.randrange(50, len(posts_urls))]: # liking for random posts under 1 hashtag starting from 10th as "newest"
-                print('зашел в цикл')
-                print(url)
+            # print('Стою у цикла')
+            for url in posts_urls[10:random.randrange(35, len(posts_urls))]: # liking for random posts under 1 hashtag starting from 10th as "newest"
+                # print('зашел в цикл')
+                # print(url)
                 url_counter += 1
-                print('Счечик урлов', url_counter, 'Перехожу по ссылкам профилей')
+                # print('Счечик урлов', url_counter, 'Перехожу по ссылкам профилей')
                 try:
 
                     browser.get(url)
-                    print('Попытался сгонять по ссылке профиля', url)
+                    # print('Попытался сгонять по ссылке профиля', url)
                     time.sleep(5)
                     if self.find_already_liked_posts():     # Если еще не полайкали, то вперед
                         browser.find_element_by_xpath(
