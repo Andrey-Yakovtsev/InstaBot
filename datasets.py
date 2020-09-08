@@ -1,27 +1,26 @@
 tags = [
-# 'наспорте',
-# 'калашниковспорт',
-# 'iverswim', 'открытаявода', 'xwaters', 'swimstar',
-# "wearegrut",  "бег", "бегвреден", "беганутые", "goldenringultratrail",
-# "марафон", "московскиймарафон", "марафонецбеговыекроссовки",
-# "гейтанализ", "бегайправильно", 'russiarunning',
-# "wearegrom", "осеннийгром", "паркран",
-# "бегун", "пробежка", "московскийполумарафон",
-#
-#
-# "айронмен", "трилайф",  'триатлондляновичков',
-#  "триатлонцентр",
-#  "триспорт", "триатлет", "тренерпотриатлону",
-# "ironstarsochi", "ironstarkazan",
+    ###COMMON###
+'наспорте',
+'калашниковспорт',
+"wearegrut",  "бег", "бегвреден", "беганутые", "goldenringultratrail",
+"марафон", "московскиймарафон", "марафонецбеговыекроссовки",
+"гейтанализ", "бегайправильно", 'russiarunning',
+"wearegrom", "осеннийгром", "паркран",
+"бегун", "пробежка", "московскийполумарафон"
+
+### SWIM ###
+'iverswim', 'открытаявода', 'xwaters', 'swimstar',
+
+### TRI ###
+"айронмен", "трилайф",  'триатлондляновичков', "триатлонцентр",
+"триспорт", "триатлет", "тренерпотриатлону", "ironstarsochi", "ironstarkazan",
 "ironstar", "айронстар", 'ironstarrussia', 'ironstartriathlon', 'ironstarcrocus',
 'триатлондубна', 'николовперевоз', 'ironstarzavidovo'
-# "триатлонтренировки", "cycleonteam", "ilovesupersport",
-#
-# "ironstarkaliningrad",  'triathlonrussia', 'ironstarzavidovo',
-# 'russiankona', 'ironstar226',
-"триатлонец", 'триатлонист', "триатлон", "триатлонgirl",
-#
+"триатлонтренировки", "cycleonteam", "ilovesupersport",
+"ironstarkaliningrad",  'triathlonrussia', 'ironstarzavidovo',
+'russiankona', 'ironstar226', "триатлонец", 'триатлонист', "триатлон", "триатлонgirl"
 
+### VELO ###
 "letapmoscow", 'велогонка', 'granfondorussia',
 'шоссейныйвелосипед', 'tourdeklenovo', "гранфондо",
 "велоруза", 'tourdeklenovo', "велоспорт",
