@@ -23,7 +23,7 @@ class InstagramBot:
         self.username = username
         self.password = password
         self.options = Options()
-        self.options.headless = False
+        self.options.headless = True
         self.profile = webdriver.FirefoxProfile()
         self.profile.set_preference("general.useragent.override", "Mozilla/5.0")
         self.browser = webdriver.Firefox(self.profile, options=self.options)
