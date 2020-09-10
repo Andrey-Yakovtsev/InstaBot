@@ -145,11 +145,11 @@ class InstagramBot:
             hrefs = browser.find_elements_by_tag_name('a')
             # print('Нашел ссылки с тегом а')
             posts_urls = [item.get_attribute('href') for item in hrefs if "/p/" in item.get_attribute('href')]
-            # print('Набил список', posts_urls)
+            bot.send_message(chat_id=tg_chat_auth, text=f'Набил список длиной: {len(posts_urls)}')
 
             url_counter = 0
             # print('Стою у цикла')
-            for url in posts_urls[10:random.randrange(11, len(posts_urls))]: # liking for random posts under 1 hashtag starting from 10th as "newest"
+            for url in posts_urls[10:int(len(posts_urls))]: # liking for random posts under 1 hashtag starting from 10th as "newest"
                 print('Листаю цикл')
                 # print(url)
                 url_counter += 1
