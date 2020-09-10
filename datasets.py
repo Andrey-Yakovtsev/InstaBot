@@ -1,8 +1,8 @@
 tags = [
 ### TRI ###
-# "айронмен", "трилайф",  'триатлондляновичков', "триатлонцентр",
-# "триатлет", "тренерпотриатлону", "ironstarsochi", "ironstarkazan",
-# "ironstar", "айронстар", 'ironstarrussia', 'ironstartriathlon',
+"айронмен", "трилайф",  'триатлондляновичков', "триатлонцентр",
+"триатлет", "тренерпотриатлону", "ironstarsochi", "ironstarkazan",
+"ironstar", "айронстар", 'ironstarrussia', 'ironstartriathlon',
 'ironstarcrocus',
 'триатлондубна', 'николовперевоз', 'ironstarzavidovo',
 "триатлонтренировки", "cycleonteam", "ilovesupersport",

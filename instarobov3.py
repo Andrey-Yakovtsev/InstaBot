@@ -149,7 +149,7 @@ class InstagramBot:
 
             url_counter = 0
             # print('Стою у цикла')
-            for url in posts_urls[10:random.randrange(25, len(posts_urls))]: # liking for random posts under 1 hashtag starting from 10th as "newest"
+            for url in posts_urls[10:random.randrange(11, len(posts_urls))]: # liking for random posts under 1 hashtag starting from 10th as "newest"
                 print('Листаю цикл')
                 # print(url)
                 url_counter += 1
