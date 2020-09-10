@@ -23,7 +23,7 @@ class InstagramBot:
         self.username = username
         self.password = password
         self.options = Options()
-        self.options.headless = True
+        self.options.headless = False
         self.profile = webdriver.FirefoxProfile()
         self.profile.set_preference("general.useragent.override", "Mozilla/5.0")
         self.browser = webdriver.Firefox(self.profile, options=self.options)
@@ -149,8 +149,8 @@ class InstagramBot:
 
             url_counter = 0
             # print('Стою у цикла')
-            for url in posts_urls[10:random.randrange(35, len(posts_urls))]: # liking for random posts under 1 hashtag starting from 10th as "newest"
-                # print('зашел в цикл')
+            for url in posts_urls[10:random.randrange(25, len(posts_urls))]: # liking for random posts under 1 hashtag starting from 10th as "newest"
+                print('Листаю цикл')
                 # print(url)
                 url_counter += 1
                 # print('Счечик урлов', url_counter, 'Перехожу по ссылкам профилей')
@@ -226,6 +226,7 @@ try:
     bot.send_message(chat_id=tg_chat_auth, text=f'Он сказал: "ПОЕХАЛИ!"')
     my_bot.login()
     bot.send_message(chat_id=tg_chat_auth, text=f'Залогинился')
+    print('Logged in')
     my_bot.like_photo_by_hashtag()
     my_bot.close_browser()
 except Exception as exep:
