@@ -1,14 +1,14 @@
 tags = [
 ### TRI ###
-"айронмен", "трилайф",  'триатлондляновичков',
-"триатлет", "тренерпотриатлону", "ironstarsochi", "ironstarkazan",
-"ironstar", "айронстар", 'ironstarrussia', 'ironstartriathlon',
-'ironstarcrocus', "ironstarsamara",
+"ironstarsamara",
 'триатлондубна', 'николовперевоз', 'ironstarzavidovo',
 "триатлонтренировки", "cycleonteam", "ilovesupersport",
 "ironstarkaliningrad",  'triathlonrussia', 'ironstarzavidovo',
 'russiankona', 'ironstar226', "триатлонец", 'триатлонист', "триатлон", "триатлонgirl",
-
+"айронмен", "трилайф",  'триатлондляновичков',
+"триатлет", "тренерпотриатлону", "ironstarsochi", "ironstarkazan",
+"ironstar", "айронстар", 'ironstarrussia', 'ironstartriathlon',
+'ironstarcrocus',
 ### VELO ###
 "letapmoscow", 'велогонка', 'granfondorussia',
 'шоссейныйвелосипед', 'tourdeklenovo', "гранфондо",
