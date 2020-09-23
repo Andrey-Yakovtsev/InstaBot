@@ -1,9 +1,9 @@
 tags = [
 ### TRI ###
-"айронмен", "трилайф",  'триатлондляновичков', "триатлонцентр",
+"айронмен", "трилайф",  'триатлондляновичков',
 "триатлет", "тренерпотриатлону", "ironstarsochi", "ironstarkazan",
 "ironstar", "айронстар", 'ironstarrussia', 'ironstartriathlon',
-'ironstarcrocus',
+'ironstarcrocus', "ironstarsamara",
 'триатлондубна', 'николовперевоз', 'ironstarzavidovo',
 "триатлонтренировки", "cycleonteam", "ilovesupersport",
 "ironstarkaliningrad",  'triathlonrussia', 'ironstarzavidovo',
@@ -19,13 +19,13 @@ tags = [
 'iverswim', 'открытаявода', 'xwaters', 'swimstar',
 
 ###COMMON###
-'наспорте',
+# 'наспорте',
 'калашниковспорт',
-"wearegrut",  "бег", "бегвреден", "беганутые", "goldenringultratrail",
-"марафон", "московскиймарафон", "марафонецбеговыекроссовки",
-"гейтанализ", "бегайправильно", 'russiarunning',
-"wearegrom", "осеннийгром", "паркран",
-"бегун", "пробежка", "московскийполумарафон"
+# "wearegrut",  "бег", "бегвреден", "беганутые", "goldenringultratrail",
+# "марафон", "московскиймарафон",
+# "гейтанализ", "бегайправильно", 'russiarunning',
+# "wearegrom", "осеннийгром", "паркран",
+# "бегун", "пробежка", "московскийполумарафон"
 ]
 
 skipped_friends = [

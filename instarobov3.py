@@ -134,9 +134,10 @@ class InstagramBot:
             browser.save_screenshot('screensots.png')
             # print('Получил список ХТ')
             time.sleep(5)
-            bot.send_message(chat_id=tg_chat_auth, text=f'Бот {hashtag}  стартанул.'
-                                                        f'Tag {ht_counter}/{len(tags)}')
-
+            bot.send_message(
+                chat_id=tg_chat_auth,
+                text=f'Бот {hashtag}  стартанул.'f'Tag {ht_counter}/{len(tags)}'
+                )
             for i in range(1, 9):
                 browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
                 # print('Покрутил список')
@@ -181,53 +182,69 @@ class InstagramBot:
                 except Exception as ex:
                     print(ex)
                     bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри функции {ex}')
-            bot.send_message(chat_id=tg_chat_auth, text=f'Бот по тэгу {hashtag} закончил. Likes: {like_clicks}. '
-                                                        f'Подписок {subscribe_clicks}')
-            time.sleep(random.randrange(80, 100))
+
+
+
+            bot.send_message(
+                chat_id=tg_chat_auth,
+                text=f'Бот по тэгу {hashtag} закончил. '
+                f'Likes: {like_clicks}. '
+                f'Подписок {subscribe_clicks}'
+            )
+            bot.send_message(chat_id=tg_chat_auth, text=f'Бот приснул на 30 минут')
+            time.sleep(60 * 30)
             ht_counter += 1
 
         bot.send_message(chat_id=tg_chat_auth, text=f'Бот ВООБЩЕ ВСЕ СДЕЛАЛ И ЗАКОНЧИЛ. Налупили лайков: {like_clicks}'
                                                     f'и {subscribe_clicks} подписок')
 
 
-# def run_script():
+def run_script():
+    try:
+        logging.basicConfig(filename="Logs/like_photo_by_hashtag.log", level=logging.INFO, filemode='w+')
+        logger = logging.getLogger('Botlogging:')
+        logging.info("Informational message")
+        my_bot = InstagramBot(username, password)
+        bot.send_message(chat_id=tg_chat_auth, text=f'Он сказал: "ПОЕХАЛИ!"')
+        my_bot.login()
+        bot.send_message(chat_id=tg_chat_auth, text=f'Залогинился')
+        print('Logged in')
+        my_bot.like_photo_by_hashtag()
+        my_bot.close_browser()
+    except Exception as exep:
+        bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри основного старта: {exep}')
+
+
+@bot.message_handler(commands=['start'])
+def start_message(message):
+    print("Bot started")
+    try:
+        bot.send_message(message.chat.id, run_script())
+    except Exception as exep:
+        bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри хэндлнра СТАРТ: {exep}')
+
+
+@bot.message_handler(commands=['stop'])
+def start_message(message):
+    my_bot = InstagramBot(username, password)
+    bot.send_message(message.chat.id, my_bot.close_browser())
+    print('Bot stopped')
+    bot.send_message(chat_id=tg_chat_auth, text=f'Тормознули бота руками')
+
+
+bot.polling(none_stop=True)
+
+
+# try:
+#     logging.basicConfig(filename="Logs/like_photo_by_hashtag.log", level=logging.INFO, filemode='w+')
+#     logger = logging.getLogger('Botlogging:')
+#     logging.info("Informational message")
 #     my_bot = InstagramBot(username, password)
 #     bot.send_message(chat_id=tg_chat_auth, text=f'Он сказал: "ПОЕХАЛИ!"')
 #     my_bot.login()
 #     bot.send_message(chat_id=tg_chat_auth, text=f'Залогинился')
+#     print('Logged in')
 #     my_bot.like_photo_by_hashtag()
-#
-#
-# @bot.message_handler(commands=['start'])
-# def start_message(message):
-#     print("Bot started")
-#     try:
-#         bot.send_message(message.chat.id, run_script())
-#     except Exception as exep:
-#         bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри блока трай: {exep}')
-#
-#
-# @bot.message_handler(commands=['stop'])
-# def start_message(message):
-#     my_bot = InstagramBot(username, password)
-#     bot.send_message(message.chat.id, my_bot.close_browser())
-#     print('Bot stopped')
-#     bot.send_message(chat_id=tg_chat_auth, text=f'Тормознули бота руками')
-#
-#
-# bot.polling(none_stop=True)
-
-
-try:
-    logging.basicConfig(filename="Logs/like_photo_by_hashtag.log", level=logging.INFO, filemode='w+')
-    logger = logging.getLogger('Botlogging:')
-    logging.info("Informational message")
-    my_bot = InstagramBot(username, password)
-    bot.send_message(chat_id=tg_chat_auth, text=f'Он сказал: "ПОЕХАЛИ!"')
-    my_bot.login()
-    bot.send_message(chat_id=tg_chat_auth, text=f'Залогинился')
-    print('Logged in')
-    my_bot.like_photo_by_hashtag()
-    my_bot.close_browser()
-except Exception as exep:
-    bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри основного старта: {exep}')
+#     my_bot.close_browser()
+# except Exception as exep:
+#     bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри основного старта: {exep}')
