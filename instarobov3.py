@@ -1,4 +1,6 @@
 import logging
+import sys
+
 from selenium import webdriver
 from selenium.webdriver.remote.remote_connection import LOGGER
 from selenium.webdriver.common.keys import Keys
@@ -14,6 +16,7 @@ import telebot
 '''Припилить бота чтобы мог запускать скрипт'''
 
 bot = telebot.TeleBot(bot_creds)
+sleep = False
 
 
 class InstagramBot:
@@ -183,17 +186,20 @@ class InstagramBot:
                     print(ex)
                     bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри функции {ex}')
 
-
-
             bot.send_message(
                 chat_id=tg_chat_auth,
                 text=f'Бот по тэгу {hashtag} закончил. '
                 f'Likes: {like_clicks}. '
                 f'Подписок {subscribe_clicks}'
             )
-            bot.send_message(chat_id=tg_chat_auth, text=f'Бот приснул на 30 минут')
-            time.sleep(60 * 30)
             ht_counter += 1
+            if sleep is True:
+                while sleep is True:
+                    time.sleep(60*60)
+                    bot.send_message(chat_id=tg_chat_auth, text=f'Бот СПИТ внутри основного цикла')
+            else:
+                time.sleep(60 * 30)
+                bot.send_message(chat_id=tg_chat_auth, text=f'Бот отдыхает 30 минут между хэштэгами')
 
         bot.send_message(chat_id=tg_chat_auth, text=f'Бот ВООБЩЕ ВСЕ СДЕЛАЛ И ЗАКОНЧИЛ. Налупили лайков: {like_clicks}'
                                                     f'и {subscribe_clicks} подписок')
@@ -221,16 +227,35 @@ def start_message(message):
     try:
         bot.send_message(message.chat.id, run_script())
     except Exception as exep:
-        bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри хэндлнра СТАРТ: {exep}')
+        bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри хэндлера СТАРТ: {exep}')
 
 
 @bot.message_handler(commands=['stop'])
 def start_message(message):
-    my_bot = InstagramBot(username, password)
-    bot.send_message(message.chat.id, my_bot.close_browser())
-    print('Bot stopped')
+    # my_bot = InstagramBot(username, password)
+    # bot.send_message(message.chat.id, my_bot.close_browser())
+    # print('Bot stopped')
     bot.send_message(chat_id=tg_chat_auth, text=f'Тормознули бота руками')
+    sys.exit(0)
 
+
+
+@bot.message_handler(commands=['sleep'])
+def start_message(message):
+    global sleep
+    sleep = True
+    print('Bot sleep for 24 h')
+    bot.send_message(chat_id=tg_chat_auth, text=f'Пауза на 25 часов ')
+    time.sleep(60*60*25)
+    sleep = False
+    bot.send_message(chat_id=tg_chat_auth, text=f'Время прошло. Sleep = False')
+
+@bot.message_handler(commands=['run'])
+def start_message(message):
+    global sleep
+    sleep = False
+    print('Bot waked up')
+    bot.send_message(chat_id=tg_chat_auth, text=f'Разбудил бота принудительно. Sleep = False')
 
 bot.polling(none_stop=True)
 
