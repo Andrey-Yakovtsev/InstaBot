@@ -1,14 +1,14 @@
 tags = [
 ### TRI ###
-"ironstarsamara",
-'триатлондубна', 'николовперевоз', 'ironstarzavidovo',
-"триатлонтренировки", "cycleonteam", "ilovesupersport",
-"ironstarkaliningrad",  'triathlonrussia', 'ironstarzavidovo',
+'triathlonrussia', 'ironstarzavidovo',
 'russiankona', 'ironstar226', "триатлонец", 'триатлонист', "триатлон", "триатлонgirl",
 "айронмен", "трилайф",  'триатлондляновичков',
 "триатлет", "тренерпотриатлону", "ironstarsochi", "ironstarkazan",
 "ironstar", "айронстар", 'ironstarrussia', 'ironstartriathlon',
-'ironstarcrocus',
+'ironstarcrocus', "ironstarsamara",
+'триатлондубна', 'николовперевоз', 'ironstarzavidovo',
+"триатлонтренировки", "cycleonteam", "ilovesupersport",
+"ironstarkaliningrad",
 ### VELO ###
 "letapmoscow", 'велогонка', 'granfondorussia',
 'шоссейныйвелосипед', 'tourdeklenovo', "гранфондо",
@@ -59,3 +59,5 @@ to_follow_list = [
     'scienceinsportrussia'
 
 ]
+
+
