@@ -55,6 +55,7 @@ class InstagramBot:
         password_input.send_keys(password)
 
         password_input.send_keys(Keys.ENTER)
+        bot.send_message(chat_id=tg_chat_auth, text=f'Залогинился')
         time.sleep(50)
 
     # метод поиска значения "полайкано", чтбы не кликать повторно на лайк
@@ -149,6 +150,7 @@ def run_script():
                 my_bot.close_browser()
                 time.sleep(60 * 60)
                 bot.send_message(chat_id=tg_chat_auth, text=f'Прошел час. Стартуем снова.')
+                my_bot = InstagramBot(username, password)
                 my_bot.login()
                 bot.send_message(chat_id=tg_chat_auth, text=f'Залогинился')
                 my_bot.like_photo_by_hashtag(hashtag)
@@ -163,6 +165,7 @@ def run_script():
 def start_message(message):
     print("Bot started")
     try:
+
         bot.send_message(message.chat.id, run_script())
     except Exception as exep:
         bot.send_message(chat_id=tg_chat_auth, text=f'Ошибка внутри хэндлера СТАРТ: {exep}')
