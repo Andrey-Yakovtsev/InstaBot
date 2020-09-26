@@ -143,7 +143,7 @@ def run_script():
         my_bot.login()
         bot.send_message(chat_id=tg_chat_auth, text=f'Залогинился на первый вход')
         for key, hashtag in tags_enum:
-            if key % 5 == 0:
+            if key != 0 and key % 5 == 0:
                 my_bot.like_photo_by_hashtag(hashtag)
                 bot.send_message(chat_id=tg_chat_auth, text=f'Прошел цикл. Отрубаемся на час.')
                 my_bot.close_browser()
