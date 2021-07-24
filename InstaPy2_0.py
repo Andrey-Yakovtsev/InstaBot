@@ -8,7 +8,7 @@ import logging
 import telebot
 
 
-bot = telebot.TeleBot('1095292391:AAHpAyz2zfnkQmHzq53rJ8ce_2BfpHa09LI')
+bot = telebot.TeleBot('')
 def print_bot_start_status(text):
     bot.send_message(chat_id='212438834', text=f'Бот {text}  стартанул')
 
@@ -24,10 +24,10 @@ def like_by_tags_bot():
     logging.basicConfig(filename="Logs/like_by_tags.log", level=logging.INFO, filemode='w')
     print_bot_start_status('like_by_tags_bot')
     session = InstaPy(
-        # username="a_yakovtsev",
-        # password="Insta331133",
-        username="trisport_russia",
-        password="Pivovar3312",
+        # username="",
+        # password="",
+        username="",
+        password="",
         headless_browser=True,
         disable_image_load=True,
         multi_logs=True,
@@ -92,16 +92,15 @@ def follow_user_followers_bot():
     logging.basicConfig(filename="Logs/follow_user_followers.log", level=logging.INFO, filemode='w')
     print_bot_start_status('follow_user_followers_bot')
     session = InstaPy(
-        # username="a_yakovtsev",
-        # password="Insta331133",
-        username="trisport_russia",
-        password="Pivovar3312",
+      
+        username="",
+        password="",
         headless_browser=False,
         disable_image_load=True,
         multi_logs=True,
         show_logs=True,
         bypass_security_challenge_using='sms')
-    # telegram = InstaPyTelegramBot(token='1095292391:AAHpAyz2zfnkQmHzq53rJ8ce_2BfpHa09LI',
+    # telegram = InstaPyTelegramBot(token='',
     #                               telegram_username='@andrey_yakovtsev',
     #                               debug=True,
     #                               instapy_session=session)
@@ -159,10 +158,10 @@ def follow_photo_likers_bot():
     logging.basicConfig(filename="Logs/follow_photo_likers.log", level=logging.INFO, filemode='w')
     print_bot_start_status('follow_photo_likers_bot')
     session = InstaPy(
-        # username="a_yakovtsev",
-        # password="Insta331133",
-        username="trisport_russia",
-        password="Pivovar3312",
+        # username="",
+        # password="",
+        username="",
+        password="",
         headless_browser=True,
         disable_image_load=True,
         multi_logs=True,
@@ -218,8 +217,8 @@ def follow_photo_likers_bot():
 #     '''Задание для отписок'''
 #     # logging.basicConfig(filename="Logs/unsubscribe.log", level=logging.INFO)
 #     session = InstaPy(
-#         username="trisport_russia",
-#         password="Pivovar3312",
+#         username="",
+#         password="",
 #         headless_browser=True,
 #         disable_image_load=True,
 #         multi_logs=True,
